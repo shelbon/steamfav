@@ -30,7 +30,6 @@ The commit message should be structured as follows:
 
 [optional footer(s)]
 ```
-
 The commit contains the following structural elements, to communicate intent to the consumers of your library:
 
     fix: a commit of the type fix patches a bug in your codebase (this correlates with PATCH in Semantic Versioning).
