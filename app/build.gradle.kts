@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application") version "7.3.1"
     id("org.jetbrains.kotlin.android") version "1.7.20"
+    id("com.google.gms.google-services")
     id("kotlin-parcelize")
     kotlin("kapt")
 }
@@ -60,12 +61,25 @@ dependencies {
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.5.1")
     implementation("com.google.android.material:material:1.7.0")
+    // Google
+    implementation("com.google.android.gms:play-services-auth:20.4.0")
+
+
+    // Firebase
+    implementation(platform("com.google.firebase:firebase-bom:31.1.0"))
+    implementation("com.google.firebase:firebase-firestore-ktx")
+    implementation("com.google.firebase:firebase-storage-ktx")
+    implementation("com.google.firebase:firebase-auth-ktx")
+
+    // Firebase UI
+    implementation("com.firebaseui:firebase-ui-auth:8.0.2")
+    implementation("com.firebaseui:firebase-ui-database:8.0.2")
     //http and api dependencies
     implementation("com.squareup.retrofit2:retrofit:$retrofit_version")
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
     implementation("com.squareup.okhttp3:okhttp:5.0.0-alpha.2")
-    // end of http and api dependencies
     implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2")
+    // end of http and api dependencies
     implementation("com.github.bumptech.glide:glide:4.14.2")
     kapt("com.github.bumptech.glide:compiler:4.14.2")
     testImplementation("junit:junit:4.13.2")
