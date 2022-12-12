@@ -1,8 +1,8 @@
-# steamfav
+# Steamfav
 
 Final android projet for  the 1st year at ESGI
 
-App use to allow user to see/add  game to is favorite list with the steam api
+the application allow user to see/add  game to is favorite list with the steam api
 
 ## Technologie Use
 
@@ -10,18 +10,18 @@ App use to allow user to see/add  game to is favorite list with the steam api
 
 - Android
 
-- retrofit
+- Retrofit
 
-- moshi
+- Moshi
 
-- a BAAS
+- firebase
 
 ## To contribute
 
- the projet follow  the trunk based workflow  : one branch,short lived feature branch merged only when pull/merge request accepted and ci pipeline passed.
- 
- Commits should follow the conventional commits: https://www.conventionalcommits.org/en/v1.0.0/#summary
- Exercpt:
+the projet follow  the trunk based workflow  : one branch,short lived feature branch merged only when pull/merge request accepted and ci pipeline passed.
+
+Commits should follow the conventional commits: https://www.conventionalcommits.org/en/v1.0.0/#summary
+Exercpt:
 The commit message should be structured as follows:
 ```
 <type>[optional scope]: <description>
@@ -30,7 +30,6 @@ The commit message should be structured as follows:
 
 [optional footer(s)]
 ```
-
 The commit contains the following structural elements, to communicate intent to the consumers of your library:
 
     fix: a commit of the type fix patches a bug in your codebase (this correlates with PATCH in Semantic Versioning).
