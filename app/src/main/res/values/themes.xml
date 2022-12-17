@@ -1,14 +1,27 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Steamfav" parent="Theme.Material3.DayNight">
+    <style name="Theme.Steamfav" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
+        <!--   color for the app bar and other primary UI elements -->
         <item name="colorPrimary">@color/black_400</item>
+        <!--   a darker variant of the primary color, used for
+           the status bar (on Android 5.0+) and contextual app bars -->
         <item name="colorPrimaryVariant">@color/black_300</item>
         <item name="colorOnPrimary">@color/white</item>
+        <!--   a secondary color for controls like checkboxes and text fields -->
         <item name="colorAccent">@color/purple_300</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="android:textColorHint">@color/white</item>
+        <!-- color of activity's background -->
+        <item name="android:windowBackground">?attr/colorPrimary</item>
+        <item name="textAppearanceTitleMedium">@style/TextAppearance.App.TitleMedium</item>
+        <item name="textInputStyle">@style/Widget.App.TextInputLayout</item>
+        <item name="materialButtonStyle">@style/Widget.App.Button</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
+        <item name="toolbarStyle">@style/Widget.App.Toolbar</item>
+        <item name="searchViewStyle">@style/Widget.App.SearchView</item>
     </style>
 
     <style name="Theme.Steamfav.NoActionBar">
@@ -16,7 +29,101 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Theme.Steamfav.AppBarOverlay" parent="ThemeOverlay.Material3.Dark.ActionBar" />
+    <style name="Widget.App.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.Dense">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.TextInputLayout</item>
+        <item name="android:textColorHint">?attr/colorOnPrimary</item>
+    </style>
+    <!-- style button -->
+    <style name="Widget.App.Button" parent="Widget.MaterialComponents.Button">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Button</item>
+        <item name="android:textAppearance">@style/TextAppearance.App.Button</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.App.Button</item>
+    </style>
 
-    <style name="Theme.Steamfav.PopupOverlay" parent="ThemeOverlay.Material3.Light" />
+
+    <style name="ShapeAppearance.App.Button" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">4dp</item>
+    </style>
+
+    <style name="TextAppearance.App.Button" parent="TextAppearance.MaterialComponents.Button">
+        <item name="fontFamily">@font/proxima_nova</item>
+        <item name="android:fontFamily">@font/proxima_nova</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="ThemeOverlay.App.Button" parent="">
+        <item name="android:backgroundTint">?attr/colorAccent</item>
+        <item name="colorOnPrimary">@color/white</item>
+    </style>
+    <!--style outlinedButton-->
+    <style name="Widget.App.Button.Outlined" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Button.Outlined</item>
+        <item name="android:textAppearance">@style/TextAppearance.App.Button</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.App.Button</item>
+        <item name="android:minHeight">75dp</item>
+    </style>
+    <style name="ThemeOverlay.App.Button.Outlined" parent="">
+        <item name="android:backgroundTint">@android:color/transparent</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="ShapeAppearance.App.Button.Outlined" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+        <item name="android:strokeColor">?attr/colorAccent</item>
+    </style>
+
+    <style name="TextAppearance.App.TitleMedium" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="android:textColor">@color/white</item>
+        <item name="fontFamily">@font/google_sans_bold</item>
+        <item name="android:fontFamily">@font/google_sans_bold</item>
+    </style>
+    <!-- style text input field -->
+    <style name="ThemeOverlay.App.TextInputLayout" parent="">
+        <item name="android:background">@color/black_300</item>
+        <item name="fontFamily">@font/proxima_font_family</item>
+        <item name="android:fontFamily">@font/proxima_nova</item>
+    </style>
+    <!-- style toolbar -->
+    <style name="Widget.App.Toolbar" parent="Widget.MaterialComponents.Toolbar">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Toolbar</item>
+        <item name="titleTextAppearance">@style/TextAppearance.App.TitleLarge</item>
+        <item name="subtitleTextAppearance">@style/TextAppearance.App.TitleMedium</item>
+    </style>
+
+    <style name="TextAppearance.App.TitleLarge" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="fontFamily">@font/google_sans_bold</item>
+
+        <item name="android:fontFamily">@font/google_sans_bold</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Widget.App.SearchView" parent="Widget.AppCompat.SearchView">
+        <item name="searchIcon">@drawable/ic_search</item>
+        <item name="closeIcon">@null</item>
+        <item name="iconifiedByDefault">false</item>
+        <item name="queryHint">@string/search_hint</item>
+        <item name="android:background">@color/black_300</item>
+        <item name="colorOnPrimary">@color/purple_300</item>
+        <item name="colorOnSecondary">@color/purple_300</item>
+        <item name="android:hint">@color/purple_300</item>
+        <item name="android:textAppearance">@style/TextAppearance.App.TitleLarge</item>
+    </style>
+
+    <style name="ThemeOverlay.App.Toolbar" parent="">
+        <item name="android:tint">@color/white</item>
+    </style>
+
+    <style name="Widget.App.TabLayout" parent="Widget.MaterialComponents.TabLayout">
+        <item name="tabBackground">@drawable/tabs_selector</item>
+        <item name="tabIndicator">@null</item>
+        <item name="android:background">@drawable/tab_bg</item>
+        <item name="tabSelectedTextColor">@color/white</item>
+        <item name="tabTextColor">@color/white</item>
+    </style>
+
+    <style name="Theme.Steamfav.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
+
+    <style name="Theme.Steamfav.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
 </resources>
