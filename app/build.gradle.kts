@@ -1,8 +1,10 @@
+apply("${rootProject.projectDir}/config.gradle.kts")
 plugins {
     id("com.android.application") version "7.3.1"
     id("org.jetbrains.kotlin.android") version "1.7.20"
     id("com.google.gms.google-services")
     id("kotlin-parcelize")
+    id("de.mannodermaus.android-junit5")
     kotlin("kapt")
 }
 android {
@@ -27,6 +29,13 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField(
+                "String",
+                "STEAM_STORE_API_BASE_URL",
+                "\"http://localhost:3001/api/\""
+            )
+            buildConfigField("String", "STEAM_WORKS_WEB_API_BASE_URL", "\"http://localhost:3001\"")
+            buildConfigField("String", "STEAM_STORE_BASE_URL", "\"http://localhost:3001\"")
         }
         getByName("release") {
             isMinifyEnabled = true
@@ -35,9 +44,24 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-
+            buildConfigField(
+                "String",
+                "STEAM_STORE_API_BASE_URL",
+                "\"https://store.steampowered.com/api\""
+            )
+            buildConfigField(
+                "String",
+                "STEAM_WORKS_WEB_API_BASE_URL",
+                "\"https://api.steampowered.com\""
+            )
+            buildConfigField(
+                "String",
+                "STEAM_STORE_BASE_URL",
+                "\"https://store.steampowered.com/\""
+            )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -77,12 +101,32 @@ dependencies {
     //http and api dependencies
     implementation("com.squareup.retrofit2:retrofit:$retrofit_version")
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
+    implementation("com.squareup.moshi:moshi:1.14.0")
+    implementation("com.squareup.moshi:moshi-kotlin:1.14.0")
+    implementation("androidx.legacy:legacy-support-v4:1.0.0")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.5.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
+    kapt("com.squareup.moshi:moshi-kotlin-codegen:1.14.0")
     implementation("com.squareup.okhttp3:okhttp:5.0.0-alpha.2")
     implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2")
     // end of http and api dependencies
     implementation("com.github.bumptech.glide:glide:4.14.2")
     kapt("com.github.bumptech.glide:compiler:4.14.2")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.4")
+    //assertj
+    testImplementation("org.assertj:assertj-core:3.23.1")
+    //mock web server
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.10.0")
+    //coroutine test
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
+    //junit5
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.1")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.1")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:5.9.1")
+    //Mockito
+    testImplementation("org.mockito:mockito-core:4.8.1")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
+    testImplementation("org.mockito:mockito-inline:3.12.4")
+    testImplementation("org.mockito:mockito-junit-jupiter:4.8.1")
+    //espresso ui test
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.0")
 }

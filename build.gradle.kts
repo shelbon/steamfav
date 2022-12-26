@@ -13,5 +13,6 @@ buildscript {
         classpath("com.android.tools.build:gradle:7.3.1")
         classpath("androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version")
         classpath("com.google.gms:google-services:4.3.14")
+        classpath("de.mannodermaus.gradle.plugins:android-junit5:1.7.1.1")
     }
 }
