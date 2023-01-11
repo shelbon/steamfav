@@ -1,6 +1,11 @@
 <resources>
-    <string name="app_name">steamfav</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="app_name">Steamfav</string>
+    <string name="title_activity_main">@string/app_name</string>
     <string name="search_hint">Rechercher un jeu…</string>
+    <string name="read_more">En savoir plus</string>
+    <string name="homeListTitle">Les meilleurs ventes</string>
+    <string name="menu_likes">likes</string>
+    <string name="menu_whishlist">whishlist</string>
+    <string name="content_description_spotlight_game">game cover</string>
 
 </resources>

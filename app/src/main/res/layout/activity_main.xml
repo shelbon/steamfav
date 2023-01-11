@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
@@ -9,115 +10,37 @@
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
         style="@style/Widget.App.Toolbar"
+        android:elevation="4dp"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        android:elevation="4dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="App" />
+        app:menu="@menu/main" />
 
     <TextView
-        android:id="@+id/title"
+        android:id="@+id/status_operation"
+        style="@style/TextAppearance.App.TitleMedium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Mot de passe oublié"
-        android:textAppearance="@style/TextAppearance.App.TitleMedium"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/search">
-
-    </TextView>
-
-
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/input"
-        style="@style/Widget.App.TextInputLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:errorEnabled="true"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:gravity="center"
-            android:hint="E-mail">
-
-        </com.google.android.material.textfield.TextInputEditText>
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/search"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/Widget.App.SearchView"
-        app:layout_constraintBottom_toTopOf="@id/title"
-        app:layout_constraintTop_toBottomOf="@id/toolbar" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/button"
-        style="@style/Widget.App.Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Renvoyer mon mot de passe"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/input" />
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card"
-        android:background="@drawable/rounded_border"
-        app:layout_constraintTop_toBottomOf="@id/button"
+        android:textSize="20sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginEnd="15dp"
-        android:layout_marginStart="15dp"
-        android:layout_width="0dp"
-        android:layout_height="200dp">
-    <androidx.constraintlayout.widget.ConstraintLayout
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Loading"
+        tools:visibility="visible" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/nav_host_fragment_container"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <ImageView
-            android:id="@+id/game_image"
-            tools:src="@tools:sample/backgrounds/scenic"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/card_button"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_width="wrap_content"
-            android:layout_height="100dp"/>
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/card_button"
-            style="@style/Widget.App.Button"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:text="En savoir plus"
-            android:maxLines="2"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="@id/guidline"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_min="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guidline"
-            android:layout_width="20dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.60"
-            >
-
-        </androidx.constraintlayout.widget.Guideline>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/outlinedButton"
-        style="@style/Widget.App.Button.Outlined"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Renvoyer mon mot de passe"
-        app:cornerRadius="2dp"
+        android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/card"
-        app:strokeColor="?attr/colorAccent"
-        app:strokeWidth="2dp" />
+        app:defaultNavHost="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:navGraph="@navigation/main" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
