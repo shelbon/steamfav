@@ -1,11 +1,14 @@
 <resources>
     <string name="app_name">Steamfav</string>
     <string name="title_activity_main">@string/app_name</string>
-    <string name="search_hint">Rechercher un jeu…</string>
-    <string name="read_more">En savoir plus</string>
-    <string name="homeListTitle">Les meilleurs ventes</string>
-    <string name="menu_likes">likes</string>
+    <string name="search_hint">Search for a game…</string>
+    <string name="read_more">Read more</string>
+    <string name="homeListTitle">The best sellers</string>
+    <string name="menu_likes">Likes</string>
     <string name="menu_whishlist">whishlist</string>
     <string name="content_description_spotlight_game">game cover</string>
+    <string name="home_fragment_title">Home</string>
+    <string name="loading_text">Loading...</string>
+    <string name="generic_loading_error">Some error happened when fetching data</string>
 
 </resources>
