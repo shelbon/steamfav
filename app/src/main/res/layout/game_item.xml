@@ -4,38 +4,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:id="@+id/game_item_layout"
     android:background="@color/black_400">
-
     <ImageView
         android:id="@+id/game_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@tools:sample/avatars" />
+        app:layout_constraintEnd_toStartOf="@id/guideline"
+        tools:src="@tools:sample/avatars"
+        android:contentDescription="@string/content_description_spotlight_game" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/barrier"
+        android:id="@+id/guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.25"
+        app:layout_constraintGuide_percent="0.24"
         app:layout_constraintStart_toEndOf="@id/game_image"
+        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.75"
+        app:layout_constraintStart_toStartOf="@id/btn_read_more"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/game_title"
         style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/barrier"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toEndOf="@id/guideline2"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.45"
-        tools:text="Game Title" />
+        app:layout_constraintStart_toStartOf="@id/guideline"
+        tools:text="Counter-Strike: Global Offensive"/>
 
     <TextView
         android:id="@+id/game_editors"
@@ -43,9 +51,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        app:layout_constraintStart_toEndOf="@+id/barrier"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@id/game_title"
-        tools:text="editor name" />
+        tools:text="Valve" />
 
     <TextView
         android:id="@+id/game_price"
@@ -53,16 +62,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        app:layout_constraintStart_toEndOf="@id/barrier"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@id/guideline"
         app:layout_constraintTop_toBottomOf="@id/game_editors"
         tools:text="price:10,00€" />
 
     <Button
         android:id="@+id/btn_read_more"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="@string/read_more"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

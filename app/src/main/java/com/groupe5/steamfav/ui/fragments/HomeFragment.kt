@@ -1,5 +1,6 @@
 package com.groupe5.steamfav.ui.fragments
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,10 @@ import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide.*
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
+import com.groupe5.steamfav.R
 import com.groupe5.steamfav.abstraction.ItemClickListener
 import com.groupe5.steamfav.data.GamesRepository
 import com.groupe5.steamfav.databinding.FragmentHomeBinding
@@ -46,20 +51,39 @@ class HomeFragment : Fragment(), ItemClickListener<GameItem> {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val gamesRecyclerView = binding.mostPlayedGameList
         val adapter = GamesAdapter(this)
-        gamesRecyclerView.setItemViewCacheSize(20)
+        gamesRecyclerView.setItemViewCacheSize(46)
+        gamesRecyclerView.addItemDecoration(com.groupe5.steamfav.utils.DividerItemDecoration(20))
         viewModel.spotLightGame.observe(viewLifecycleOwner) { response ->
             when (response.status) {
                 Resource.Status.SUCCESS -> {
                     response.data?.let { data ->
                         binding.spotlightGame.gameDescription.text = data.shortDescription
                         binding.spotlightGame.gameTitle.text = data.name
+                        with(this)
+                            .load(data.backgroundImage)
+                           .into(object:CustomTarget<Drawable>(binding.spotlightGame.spotlightGameContainer.width,binding.spotlightGame.spotlightGameContainer.height){
+                               override fun onResourceReady(
+                                   resource: Drawable,
+                                   transition: Transition<in Drawable>?
+                               ) {
+                                   binding.spotlightGame.spotlightGameContainer.background=resource
+                               }
+
+                               override fun onLoadCleared(placeholder: Drawable?) {
+                                   binding.spotlightGame.spotlightGameContainer.background=null
+                               }
+
+                           })
+                        with(this)
+                            .load(data.headerImage)
+                            .into(binding.spotlightGame.gameCover)
                     }
                 }
                 Resource.Status.ERROR -> statusOperation?.text =
-                    "Some error happened when fetching data"
+                    getString(R.string.generic_loading_error)
                 Resource.Status.LOADING -> {
                     statusOperation?.visibility = View.VISIBLE
-                    statusOperation?.text = "Loading..."
+                    statusOperation?.text = getString(R.string.loading_text)
                 }
             }
 
@@ -74,7 +98,8 @@ class HomeFragment : Fragment(), ItemClickListener<GameItem> {
                                 it.name,
                                 it.publisher,
                                 it.priceOverview?.finalFormatted ?: "",
-                                ""
+                                it.headerImage,
+                                it.backgroundImage
                             )
                         })
                         gamesRecyclerView.run {
@@ -97,9 +122,9 @@ class HomeFragment : Fragment(), ItemClickListener<GameItem> {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        statusOperation = requireActivity().findViewById(com.groupe5.steamfav.R.id.status_operation)
+        statusOperation = requireActivity().findViewById(R.id.status_operation)
         val mConstraintLayout =
-            requireActivity().findViewById(com.groupe5.steamfav.R.id.activity_layout) as ConstraintLayout
+            requireActivity().findViewById(R.id.activity_layout) as ConstraintLayout
         val set = ConstraintSet()
 
         set.clone(mConstraintLayout)

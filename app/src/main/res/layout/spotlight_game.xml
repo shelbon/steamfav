@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
+    android:layout_height="wrap_content"
+    android:id="@+id/spotlight_game_container"
     android:padding="25dp"
     tools:background="@tools:sample/backgrounds/scenic">
 
@@ -13,7 +14,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@id/game_description"
-        app:layout_constraintEnd_toStartOf="@+id/game_cover"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Titan Fall 2 Ultimate Edition" />
@@ -23,30 +24,37 @@
         style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toStartOf="@id/game_cover"
+        app:layout_constraintEnd_toStartOf="@id/guideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/game_title"
+        android:maxLines="8"
+        android:ellipsize="end"
         tools:text="Une description d’un jeu mis en avant
 (peu être fait en dur)" />
-
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.56"
+        app:layout_constraintStart_toEndOf="@id/game_description"
+        app:layout_constraintTop_toTopOf="parent" />
     <Button
         android:id="@+id/btn_read_more"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/read_more"
-        app:layout_constraintEnd_toStartOf="@id/game_cover"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/game_description"
         app:layout_constraintTop_toBottomOf="@id/game_description" />
 
     <ImageView
         android:id="@+id/game_cover"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="50dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:contentDescription="@string/content_description_spotlight_game"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0"
+        app:layout_constraintStart_toEndOf="@id/guideline"
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@tools:sample/avatars" />
 

@@ -13,12 +13,14 @@ class GameDetailAdapter : DeserializeAdapter<GameDetailResponse, GameDetails> {
                 if (responseData.success == true) {
                     responseData.data.let { gameDetailResponse ->
                         return GameDetails(
-                            gameDetailResponse.name,
-                            gameDetailResponse.type,
-                            gameDetailResponse.aboutTheGame,
-                            gameDetailResponse.shortDescription,
-                            gameDetailResponse.priceOverview,
-                            gameDetailResponse.publishers ?: emptyList(),
+                            gameDetailResponse?.name?:"",
+                            gameDetailResponse?.type?:"",
+                            gameDetailResponse?.aboutTheGame?:"",
+                            gameDetailResponse?.shortDescription?:"",
+                            gameDetailResponse?.headerImage?:"",
+                            gameDetailResponse?.backgroundImage?:"",
+                            gameDetailResponse?.priceOverview,
+                            gameDetailResponse?.publishers ?: emptyList(),
                         )
                     }
                 }

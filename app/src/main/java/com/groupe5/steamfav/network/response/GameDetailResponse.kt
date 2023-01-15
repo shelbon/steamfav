@@ -9,7 +9,7 @@ data class ResponseData(
     @Json(name = "success")
     val success: Boolean? = false,
     @Json(name = "data")
-    val data: Data
+    val data: Data?
 )
 
 data class Data(
@@ -31,7 +31,8 @@ data class Data(
     val shortDescription: String,
     @Json(name = "header_image")
     val headerImage: String,
-
+    @Json(name = "background")
+    val backgroundImage: String,
     @Json(name = "publishers")
     val publishers: List<String>? = emptyList(),
     @Json(name = "price_overview")

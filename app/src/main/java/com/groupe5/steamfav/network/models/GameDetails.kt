@@ -7,6 +7,8 @@ data class GameDetails(
     val type: String,
     val description: String,
     val shortDescription: String,
+    val headerImage: String,
+    val backgroundImage: String,
     val priceOverview: PriceOverview?,
     val publisher: List<String>
 ) {
