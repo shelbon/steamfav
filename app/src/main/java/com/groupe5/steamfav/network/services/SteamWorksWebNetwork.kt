@@ -6,6 +6,7 @@ import com.groupe5.steamfav.network.models.ApiName
 import com.groupe5.steamfav.network.models.TopReleasePage
 import com.groupe5.steamfav.network.response.MostPlayedGames
 import com.groupe5.steamfav.network.response.adapter.TopReleasePageAdapter
+import retrofit2.Response
 
 class SteamWorksWebNetwork() : SteamWorksWebDataSource {
     private val networkConfigurator: NetworkConfigurator = NetworkConfigurator()
@@ -14,13 +15,12 @@ class SteamWorksWebNetwork() : SteamWorksWebDataSource {
             .create(RetrofitSteamWorksWebApi::class.java)
 
 
-    override suspend fun getMostPlayedGames(): MostPlayedGames? {
-        val mostPlayedGamesResponse = api.getMostPlayedGames()
-        return mostPlayedGamesResponse.body()
+    override suspend fun getMostPlayedGames(): Response<MostPlayedGames> {
+        return api.getMostPlayedGames()
     }
 
-    override suspend fun getTopReleaseGamesOfThe3Months(): TopReleasePage? {
-        return api.getTopReleasesPages().body();
+    override suspend fun getTopReleaseGamesOfThe3Months(): Response<TopReleasePage> {
+        return api.getTopReleasesPages()
     }
 
 

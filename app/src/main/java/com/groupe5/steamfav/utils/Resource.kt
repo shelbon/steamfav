@@ -1,6 +1,6 @@
 package com.groupe5.steamfav.utils
 
-data class Resource<out T>(
+sealed class Resource<out T>(
     val status: Status,
     val data: T?,
     val message: String?
@@ -11,19 +11,12 @@ data class Resource<out T>(
         LOADING
     }
 
-    companion object {
 
-        fun <T> success(data: T?): Resource<T> {
-            return Resource(Status.SUCCESS, data, null)
-        }
+    data class Success<out T>(val _data: T?) : Resource<T>(Status.SUCCESS, data=_data, null)
 
-        fun <T> error(msg: String, data: T?): Resource<T> {
-            return Resource(Status.ERROR, data, msg)
-        }
 
-        fun <T> loading(data: T? = null): Resource<T> {
-            return Resource(Status.LOADING, data, null)
-        }
+    data class Error<out T>(val msg: String, val _data: T?) : Resource<T>(Status.ERROR, data=_data, msg)
 
-    }
+
+    data class Loading<out T>(val _data: T? = null) : Resource<T>(Status.LOADING, data=_data, null)
 }

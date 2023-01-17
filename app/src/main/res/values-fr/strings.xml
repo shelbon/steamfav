@@ -10,5 +10,7 @@
     <string name="content_description_spotlight_game">Couverture de jeu</string>
     <string name="home_fragment_title">Accueil</string>
     <string name="loading_text">Chargement…</string>
+    <string name="some_game_not_found">Certains jeux n\'ont pas été trouvés</string>
+    <string name="error_too_many_requests">Trop de requetes, réessayer plus tard</string>
     <string name="generic_loading_error">Une erreur s\'est produite lors de la récupération des données</string>
 </resources>

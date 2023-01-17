@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Titan Fall 2 Ultimate Edition" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/game_description"
         style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
         android:layout_width="0dp"

@@ -10,5 +10,5 @@ interface RetrofitSteamWorksWebApi {
     suspend fun getMostPlayedGames(): Response<MostPlayedGames>
 
     @GET("/ISteamChartsService/GetTopReleasesPages/v1")
-    suspend fun getTopReleasesPages(): Response<TopReleasePage?>
+    suspend fun getTopReleasesPages(): Response<TopReleasePage>
 }

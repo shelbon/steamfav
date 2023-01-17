@@ -14,10 +14,10 @@ class HomeViewModel(private val gamesRepository: GamesRepository) : ViewModel() 
     val games: LiveData<Resource<List<GameDetails>>>
         get() =
             gamesRepository.getGames().onStart {
-                emit(Resource.loading())
+                emit(Resource.Loading())
             }.asLiveData()
     val spotLightGame: LiveData<Resource<GameDetails?>>
         get() = gamesRepository.getSpotlightGame().onStart {
-            emit(Resource.loading())
+            emit(Resource.Loading())
         }.asLiveData()
 }

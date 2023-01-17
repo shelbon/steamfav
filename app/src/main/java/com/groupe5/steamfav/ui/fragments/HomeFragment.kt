@@ -8,10 +8,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
+import androidx.core.text.PrecomputedTextCompat
+import androidx.core.widget.TextViewCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.bumptech.glide.Glide.*
+import com.bumptech.glide.Glide.with
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.groupe5.steamfav.R
@@ -57,30 +59,39 @@ class HomeFragment : Fragment(), ItemClickListener<GameItem> {
             when (response.status) {
                 Resource.Status.SUCCESS -> {
                     response.data?.let { data ->
-                        binding.spotlightGame.gameDescription.text = data.shortDescription
+                        binding.spotlightGame.gameDescription.setTextFuture(
+                            PrecomputedTextCompat.getTextFuture(
+                                data.shortDescription,
+                                TextViewCompat.getTextMetricsParams(binding.spotlightGame.gameDescription),
+                                null
+                            )
+                        )
                         binding.spotlightGame.gameTitle.text = data.name
                         with(this)
                             .load(data.backgroundImage)
-                           .into(object:CustomTarget<Drawable>(binding.spotlightGame.spotlightGameContainer.width,binding.spotlightGame.spotlightGameContainer.height){
-                               override fun onResourceReady(
-                                   resource: Drawable,
-                                   transition: Transition<in Drawable>?
-                               ) {
-                                   binding.spotlightGame.spotlightGameContainer.background=resource
-                               }
+                            .into(object : CustomTarget<Drawable>(
+                                binding.spotlightGame.spotlightGameContainer.width,
+                                binding.spotlightGame.spotlightGameContainer.height
+                            ) {
+                                override fun onResourceReady(
+                                    resource: Drawable,
+                                    transition: Transition<in Drawable>?
+                                ) {
+                                    binding.spotlightGame.spotlightGameContainer.background =
+                                        resource
+                                }
 
-                               override fun onLoadCleared(placeholder: Drawable?) {
-                                   binding.spotlightGame.spotlightGameContainer.background=null
-                               }
+                                override fun onLoadCleared(placeholder: Drawable?) {
+                                    binding.spotlightGame.spotlightGameContainer.background = null
+                                }
 
-                           })
+                            })
                         with(this)
                             .load(data.headerImage)
                             .into(binding.spotlightGame.gameCover)
                     }
                 }
-                Resource.Status.ERROR -> statusOperation?.text =
-                    getString(R.string.generic_loading_error)
+                Resource.Status.ERROR -> statusOperation?.text = response.message
                 Resource.Status.LOADING -> {
                     statusOperation?.visibility = View.VISIBLE
                     statusOperation?.text = getString(R.string.loading_text)
@@ -109,8 +120,7 @@ class HomeFragment : Fragment(), ItemClickListener<GameItem> {
                     }
 
                 }
-                Resource.Status.ERROR -> statusOperation?.text =
-                    "Some error happened when fetching data"
+                Resource.Status.ERROR -> statusOperation?.text = response.message
                 Resource.Status.LOADING -> {
                     statusOperation?.visibility = View.VISIBLE
                     statusOperation?.text = "Loading..."
@@ -129,9 +139,9 @@ class HomeFragment : Fragment(), ItemClickListener<GameItem> {
 
         set.clone(mConstraintLayout)
         set.connect(
-            statusOperation!!.id, ConstraintSet.TOP,
+            statusOperation!!.id , ConstraintSet.BOTTOM,
             binding.listTitle.id,
-            ConstraintSet.BOTTOM, 53
+            ConstraintSet.TOP, 21
         )
         set.applyTo(mConstraintLayout)
     }
