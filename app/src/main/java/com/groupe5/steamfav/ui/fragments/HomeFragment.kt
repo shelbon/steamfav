@@ -5,9 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.text.PrecomputedTextCompat
 import androidx.core.widget.TextViewCompat
 import androidx.fragment.app.Fragment
@@ -45,7 +42,6 @@ class HomeFragment : Fragment(), ItemClickListener<GameItem> {
     }
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private var statusOperation: TextView? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -58,6 +54,8 @@ class HomeFragment : Fragment(), ItemClickListener<GameItem> {
         viewModel.spotLightGame.observe(viewLifecycleOwner) { response ->
             when (response.status) {
                 Resource.Status.SUCCESS -> {
+                    binding.spotlightGame.group.visibility=View.VISIBLE
+                    binding.spotlightGame.networkStatusSpotlightGame.visibility=View.GONE
                     response.data?.let { data ->
                         binding.spotlightGame.gameDescription.setTextFuture(
                             PrecomputedTextCompat.getTextFuture(
@@ -68,6 +66,7 @@ class HomeFragment : Fragment(), ItemClickListener<GameItem> {
                         )
                         binding.spotlightGame.gameTitle.text = data.name
                         with(this)
+                            .asDrawable()
                             .load(data.backgroundImage)
                             .into(object : CustomTarget<Drawable>(
                                 binding.spotlightGame.spotlightGameContainer.width,
@@ -82,7 +81,6 @@ class HomeFragment : Fragment(), ItemClickListener<GameItem> {
                                 }
 
                                 override fun onLoadCleared(placeholder: Drawable?) {
-                                    binding.spotlightGame.spotlightGameContainer.background = null
                                 }
 
                             })
@@ -90,11 +88,13 @@ class HomeFragment : Fragment(), ItemClickListener<GameItem> {
                             .load(data.headerImage)
                             .into(binding.spotlightGame.gameCover)
                     }
+
                 }
-                Resource.Status.ERROR -> statusOperation?.text = response.message
+                Resource.Status.ERROR -> binding.statusOperation?.text = response.message
                 Resource.Status.LOADING -> {
-                    statusOperation?.visibility = View.VISIBLE
-                    statusOperation?.text = getString(R.string.loading_text)
+                    binding.spotlightGame.group.visibility=View.GONE
+                    binding.spotlightGame.networkStatusSpotlightGame.visibility = View.VISIBLE
+                    binding.spotlightGame.networkStatusSpotlightGame.text =getString(R.string.loading_text)
                 }
             }
 
@@ -102,13 +102,13 @@ class HomeFragment : Fragment(), ItemClickListener<GameItem> {
         viewModel.games.observe(viewLifecycleOwner) { response ->
             when (response.status) {
                 Resource.Status.SUCCESS -> {
-                    statusOperation?.visibility = View.GONE
+                    binding.statusOperation.visibility = View.GONE
                     response.data?.let { data ->
                         adapter.submitList(data.map {
                             GameItem(
                                 it.name,
                                 it.publisher,
-                                it.priceOverview?.finalFormatted ?: "",
+                                it.priceOverview?.finalFormatted?:getString(R.string.freeText),
                                 it.headerImage,
                                 it.backgroundImage
                             )
@@ -120,10 +120,10 @@ class HomeFragment : Fragment(), ItemClickListener<GameItem> {
                     }
 
                 }
-                Resource.Status.ERROR -> statusOperation?.text = response.message
+                Resource.Status.ERROR -> binding.statusOperation.text = response.message
                 Resource.Status.LOADING -> {
-                    statusOperation?.visibility = View.VISIBLE
-                    statusOperation?.text = "Loading..."
+                    binding.statusOperation.visibility = View.VISIBLE
+                    binding.statusOperation.text = getString(R.string.loading_text)
                 }
             }
         }
@@ -132,18 +132,6 @@ class HomeFragment : Fragment(), ItemClickListener<GameItem> {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        statusOperation = requireActivity().findViewById(R.id.status_operation)
-        val mConstraintLayout =
-            requireActivity().findViewById(R.id.activity_layout) as ConstraintLayout
-        val set = ConstraintSet()
-
-        set.clone(mConstraintLayout)
-        set.connect(
-            statusOperation!!.id , ConstraintSet.BOTTOM,
-            binding.listTitle.id,
-            ConstraintSet.TOP, 21
-        )
-        set.applyTo(mConstraintLayout)
     }
 
     override fun onDestroyView() {

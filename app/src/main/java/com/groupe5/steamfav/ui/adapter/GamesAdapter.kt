@@ -7,11 +7,15 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
+import com.groupe5.steamfav.R
 import com.groupe5.steamfav.abstraction.ItemClickListener
 import com.groupe5.steamfav.databinding.GameItemBinding
 import com.groupe5.steamfav.ui.models.GameItem
+import com.groupe5.steamfav.utils.applyBoldEndingAtDelimiter
+import com.groupe5.steamfav.utils.applyUnderlineEndingAtDelimiter
 
 class GamesAdapter(private val itemClickListener: ItemClickListener<GameItem>) :
     ListAdapter<GameItem, GamesAdapter.GameViewHolder>(
@@ -22,13 +26,23 @@ class GamesAdapter(private val itemClickListener: ItemClickListener<GameItem>) :
             itemBinding.root
         ) {
         fun setData(gameItem: GameItem) {
+            val priceStringBuilder = StringBuilder();
+            priceStringBuilder.append(itemBinding.root.context.getString(R.string.price));
+            priceStringBuilder.append(":")
+            priceStringBuilder.append(gameItem.price);
             with(itemBinding) {
                 gameTitle.text = gameItem.name
-                gamePrice.text = gameItem.price
-                gameEditors.text = gameItem.publishers.toString()
+                gamePrice.apply{
+                    text = priceStringBuilder.toString()
+                    applyBoldEndingAtDelimiter()
+                    applyUnderlineEndingAtDelimiter()
+                }
+
+                gameEditors.text = gameItem.publishers.joinToString(",\n")
                 Glide.with(itemBinding.root)
                     .load(gameItem.backgroundImage)
-                    .into(object:CustomTarget<Drawable>(){
+
+                    .into(object : CustomTarget<Drawable>() {
                         override fun onResourceReady(
                             resource: Drawable,
                             transition: Transition<in Drawable>?

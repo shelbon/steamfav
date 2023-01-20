@@ -8,9 +8,11 @@
     <string name="menu_whishlist">whishlist</string>
     <string name="content_description_spotlight_game">game cover</string>
     <string name="home_fragment_title">Home</string>
-    <string name="loading_text">Loading...</string>
-    <string name="some_game_not_found">Some games was not found</string>
+    <string name="loading_text">Loading…</string>
+    <string name="price">Price</string>
+    <string name="error_not_found_game">Same games was not found</string>
     <string name="error_too_many_requests">Too many requests</string>
     <string name="generic_loading_error">Some error happened when fetching data</string>
+    <string name="freeText">Free</string>
 
 </resources>
