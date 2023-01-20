@@ -5,6 +5,7 @@ import com.groupe5.steamfav.BuildConfig.STEAM_STORE_API_BASE_URL
 import com.groupe5.steamfav.BuildConfig.STEAM_STORE_BASE_URL
 import com.groupe5.steamfav.BuildConfig.STEAM_WORKS_WEB_API_BASE_URL
 import com.groupe5.steamfav.network.abstraction.Adapter
+import com.groupe5.steamfav.network.interceptors.RateLimitInterceptor
 import com.groupe5.steamfav.network.models.ApiName
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -23,24 +24,22 @@ class NetworkConfigurator {
         }
 
 
-    private fun provideOkHttpClient() = if (BuildConfig.DEBUG) {
-        val loggingInterceptor = HttpLoggingInterceptor()
-        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
-        OkHttpClient.Builder()
-            .addInterceptor(loggingInterceptor)
-            .build()
-    } else {
-        OkHttpClient
-            .Builder()
-            .build()
-    }
+    private fun provideOkHttpClient() = OkHttpClient.Builder()
+        .addInterceptor(HttpLoggingInterceptor().apply {
+            level =
+                if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
+        })
+        .addInterceptor(RateLimitInterceptor())
+        .retryOnConnectionFailure(false)
+        .build()
+
 
     fun provideRetrofit(
         apiName: ApiName,
         adapter: Adapter? = null,
         okHttpClient: OkHttpClient = provideOkHttpClient(),
     ): Retrofit {
-        val baseUrl = provideBaseUrl(apiName);
+        val baseUrl = provideBaseUrl(apiName)
         val moshiBuilder = Moshi.Builder()
         adapter?.let { nonNullAdapter ->
             moshiBuilder.add(nonNullAdapter)
