@@ -8,20 +8,23 @@ import com.squareup.moshi.FromJson
 class GameDetailAdapter : DeserializeAdapter<GameDetailResponse, GameDetails> {
     @FromJson
     override fun from(obj: GameDetailResponse): GameDetails? {
-        obj?.values.let { responseDatas ->
-            responseDatas?.forEach { responseData ->
+        obj.values.let { responseDatas ->
+            responseDatas.forEach { responseData ->
                 if (responseData.success == true) {
                     responseData.data.let { gameDetailResponse ->
-                        return GameDetails(
-                            gameDetailResponse?.name?:"",
-                            gameDetailResponse?.type?:"",
-                            gameDetailResponse?.aboutTheGame?:"",
-                            gameDetailResponse?.shortDescription?:"",
-                            gameDetailResponse?.headerImage?:"",
-                            gameDetailResponse?.backgroundImage?:"",
-                            gameDetailResponse?.priceOverview,
-                            gameDetailResponse?.publishers ?: emptyList(),
-                        )
+                        return gameDetailResponse?.steamAppid?.let {steamAppid->
+                            GameDetails(
+                                steamAppid,
+                                gameDetailResponse.name,
+                                gameDetailResponse.type,
+                                gameDetailResponse.aboutTheGame  ,
+                                gameDetailResponse.shortDescription ?:"",
+                                gameDetailResponse.headerImage  ,
+                                gameDetailResponse.backgroundImage ?:"",
+                                gameDetailResponse.priceOverview,
+                                gameDetailResponse.publishers ?: emptyList(),
+                            )
+                        }
                     }
                 }
 

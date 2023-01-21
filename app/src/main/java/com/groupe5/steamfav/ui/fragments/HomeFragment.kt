@@ -49,7 +49,7 @@ class HomeFragment : Fragment(), ItemClickListener<GameItem> {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val gamesRecyclerView = binding.mostPlayedGameList
         val adapter = GamesAdapter(this)
-        gamesRecyclerView.setItemViewCacheSize(46)
+        gamesRecyclerView.setItemViewCacheSize(50)
         gamesRecyclerView.addItemDecoration(com.groupe5.steamfav.utils.DividerItemDecoration(20))
         viewModel.spotLightGame.observe(viewLifecycleOwner) { response ->
             when (response.status) {
@@ -57,6 +57,16 @@ class HomeFragment : Fragment(), ItemClickListener<GameItem> {
                     binding.spotlightGame.group.visibility=View.VISIBLE
                     binding.spotlightGame.networkStatusSpotlightGame.visibility=View.GONE
                     response.data?.let { data ->
+                        binding.spotlightGame.btnReadMore.setOnClickListener { onItemClick(
+                            GameItem(
+                                data.id,
+                                data.name,
+                                data.publisher,
+                                data.priceOverview?.finalFormatted?:getString(R.string.freeText),
+                                data.headerImage,
+                                data.backgroundImage
+                            )
+                        ) }
                         binding.spotlightGame.gameDescription.setTextFuture(
                             PrecomputedTextCompat.getTextFuture(
                                 data.shortDescription,
@@ -90,7 +100,7 @@ class HomeFragment : Fragment(), ItemClickListener<GameItem> {
                     }
 
                 }
-                Resource.Status.ERROR -> binding.statusOperation?.text = response.message
+                Resource.Status.ERROR -> binding.statusOperation.text = response.message
                 Resource.Status.LOADING -> {
                     binding.spotlightGame.group.visibility=View.GONE
                     binding.spotlightGame.networkStatusSpotlightGame.visibility = View.VISIBLE
@@ -106,6 +116,7 @@ class HomeFragment : Fragment(), ItemClickListener<GameItem> {
                     response.data?.let { data ->
                         adapter.submitList(data.map {
                             GameItem(
+                                it.id,
                                 it.name,
                                 it.publisher,
                                 it.priceOverview?.finalFormatted?:getString(R.string.freeText),
@@ -140,7 +151,7 @@ class HomeFragment : Fragment(), ItemClickListener<GameItem> {
     }
 
     override fun onItemClick(item: GameItem) {
-        val action = HomeFragmentDirections.actionHomeFragmentToGameDetails()
+        val action = HomeFragmentDirections.actionHomeFragmentToGameDetails(item.id)
         findNavController().navigate(action)
     }
 

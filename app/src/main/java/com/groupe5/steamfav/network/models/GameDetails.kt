@@ -3,6 +3,7 @@ package com.groupe5.steamfav.network.models
 import com.groupe5.steamfav.network.response.PriceOverview
 
 data class GameDetails(
+    val id: Long,
     val name: String,
     val type: String,
     val description: String,

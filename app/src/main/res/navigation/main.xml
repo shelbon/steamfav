@@ -18,5 +18,10 @@
         android:id="@+id/gameDetails"
         android:name="com.groupe5.steamfav.ui.fragments.GameDetails"
         android:label="fragment_game_details"
-        tools:layout="@layout/fragment_game_details" />
+        tools:layout="@layout/fragment_game_details" >
+        <argument
+            android:name="gameId"
+            android:defaultValue="0L"
+            app:argType="long" />
+    </fragment>
 </navigation>
