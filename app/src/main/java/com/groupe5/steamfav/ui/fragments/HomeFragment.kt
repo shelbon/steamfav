@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
+import androidx.core.text.HtmlCompat
 import androidx.core.text.PrecomputedTextCompat
 import androidx.core.widget.TextViewCompat
 import androidx.fragment.app.Fragment
@@ -21,19 +23,18 @@ import com.groupe5.steamfav.network.services.SteamStoreNetwork
 import com.groupe5.steamfav.network.services.SteamWorksWebNetwork
 import com.groupe5.steamfav.ui.adapter.GamesAdapter
 import com.groupe5.steamfav.ui.models.GameItem
-import com.groupe5.steamfav.utils.Resource
+import com.groupe5.steamfav.utils.NetworkResult
 import com.groupe5.steamfav.viewmodels.HomeViewModel
-import com.groupe5.steamfav.viewmodels.factory.HomeViewModelFactory
+import com.groupe5.steamfav.viewmodels.factory.ViewModelFactory
 
 
 class HomeFragment : Fragment(), ItemClickListener<GameItem> {
 
-    companion object {
-        fun newInstance() = HomeFragment()
-    }
+
 
     private val viewModel: HomeViewModel by viewModels {
-        HomeViewModelFactory(
+        ViewModelFactory(
+            this,
             GamesRepository(
                 SteamWorksWebNetwork(),
                 SteamStoreNetwork()
@@ -49,27 +50,42 @@ class HomeFragment : Fragment(), ItemClickListener<GameItem> {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val gamesRecyclerView = binding.mostPlayedGameList
         val adapter = GamesAdapter(this)
+        gamesRecyclerView.adapter = adapter
         gamesRecyclerView.setItemViewCacheSize(50)
-        gamesRecyclerView.addItemDecoration(com.groupe5.steamfav.utils.DividerItemDecoration(20))
+        binding.searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
+            androidx.appcompat.widget.SearchView.OnQueryTextListener {
+
+            override fun onQueryTextChange(searchQuery: String): Boolean {
+                return true
+            }
+            override fun onQueryTextSubmit(searchQuery: String): Boolean {
+                val action = HomeFragmentDirections.actionHomeFragmentToSearchView(searchQuery)
+                findNavController().navigate(action)
+                return true
+            }
+        })
         viewModel.spotLightGame.observe(viewLifecycleOwner) { response ->
             when (response.status) {
-                Resource.Status.SUCCESS -> {
-                    binding.spotlightGame.group.visibility=View.VISIBLE
-                    binding.spotlightGame.networkStatusSpotlightGame.visibility=View.GONE
+                NetworkResult.Status.SUCCESS -> {
+                    binding.spotlightGame.group.visibility = View.VISIBLE
+                    binding.spotlightGame.networkStatusSpotlightGame.visibility = View.GONE
                     response.data?.let { data ->
-                        binding.spotlightGame.btnReadMore.setOnClickListener { onItemClick(
-                            GameItem(
-                                data.id,
-                                data.name,
-                                data.publisher,
-                                data.priceOverview?.finalFormatted?:getString(R.string.freeText),
-                                data.headerImage,
-                                data.backgroundImage
+                        binding.spotlightGame.btnReadMore.setOnClickListener {
+                            onItemClick(
+                                GameItem(
+                                    data.id,
+                                    data.name,
+                                    data.publisher,
+                                    data.priceOverview?.finalFormatted
+                                        ?: getString(R.string.freeText),
+                                    data.headerImage,
+                                    data.backgroundImage
+                                )
                             )
-                        ) }
+                        }
                         binding.spotlightGame.gameDescription.setTextFuture(
                             PrecomputedTextCompat.getTextFuture(
-                                data.shortDescription,
+                                HtmlCompat.fromHtml(data.shortDescription,0),
                                 TextViewCompat.getTextMetricsParams(binding.spotlightGame.gameDescription),
                                 null
                             )
@@ -100,18 +116,19 @@ class HomeFragment : Fragment(), ItemClickListener<GameItem> {
                     }
 
                 }
-                Resource.Status.ERROR -> binding.statusOperation.text = response.message
-                Resource.Status.LOADING -> {
-                    binding.spotlightGame.group.visibility=View.GONE
+                NetworkResult.Status.ERROR -> binding.statusOperation.text = response.message
+                NetworkResult.Status.LOADING -> {
+                    binding.spotlightGame.group.visibility = View.GONE
                     binding.spotlightGame.networkStatusSpotlightGame.visibility = View.VISIBLE
-                    binding.spotlightGame.networkStatusSpotlightGame.text =getString(R.string.loading_text)
+                    binding.spotlightGame.networkStatusSpotlightGame.text =
+                        getString(R.string.loading_text)
                 }
             }
 
         }
         viewModel.games.observe(viewLifecycleOwner) { response ->
             when (response.status) {
-                Resource.Status.SUCCESS -> {
+                NetworkResult.Status.SUCCESS -> {
                     binding.statusOperation.visibility = View.GONE
                     response.data?.let { data ->
                         adapter.submitList(data.map {
@@ -119,20 +136,18 @@ class HomeFragment : Fragment(), ItemClickListener<GameItem> {
                                 it.id,
                                 it.name,
                                 it.publisher,
-                                it.priceOverview?.finalFormatted?:getString(R.string.freeText),
+                                it.priceOverview?.finalFormatted ?: getString(R.string.freeText),
                                 it.headerImage,
                                 it.backgroundImage
                             )
                         })
-                        gamesRecyclerView.run {
-                            this.adapter = adapter
-                        }
+
 
                     }
 
                 }
-                Resource.Status.ERROR -> binding.statusOperation.text = response.message
-                Resource.Status.LOADING -> {
+                NetworkResult.Status.ERROR -> binding.statusOperation.text = response.message
+                NetworkResult.Status.LOADING -> {
                     binding.statusOperation.visibility = View.VISIBLE
                     binding.statusOperation.text = getString(R.string.loading_text)
                 }
@@ -154,5 +169,7 @@ class HomeFragment : Fragment(), ItemClickListener<GameItem> {
         val action = HomeFragmentDirections.actionHomeFragmentToGameDetails(item.id)
         findNavController().navigate(action)
     }
+
+
 
 }

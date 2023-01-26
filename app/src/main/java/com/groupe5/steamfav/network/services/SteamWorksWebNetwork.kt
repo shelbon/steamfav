@@ -11,7 +11,7 @@ import retrofit2.Response
 class SteamWorksWebNetwork() : SteamWorksWebDataSource {
     private val networkConfigurator: NetworkConfigurator = NetworkConfigurator()
     private val api: RetrofitSteamWorksWebApi =
-        networkConfigurator.provideRetrofit(ApiName.STEAM_WORKS, TopReleasePageAdapter())
+        networkConfigurator.provideRetrofit(ApiName.STEAM_WORKS, listOf(TopReleasePageAdapter()))
             .create(RetrofitSteamWorksWebApi::class.java)
 
 

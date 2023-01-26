@@ -8,7 +8,10 @@ import java.util.*
 
 interface RetrofitSteamStoreWebApi {
     @GET("/api/appdetails")
-    suspend fun getGameDetails(@Query("appids") gameId: Long,@Query("l") language:String= Locale.getDefault().getDisplayLanguage(Locale.ENGLISH).lowercase()): Response<GameDetails>
-
-
+    suspend fun getGameDetails(@Query("appids") gameId: Long,
+                               @Query("l") language:String= Locale.getDefault()
+                                   .getDisplayLanguage(Locale.ENGLISH)
+                                   .lowercase()): Response<GameDetails>
+    @GET("/api/appdetails?filters=publishers")
+    suspend fun getGamePublishers(@Query("appids")gameId:Long):Response<List<String>>
 }

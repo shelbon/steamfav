@@ -15,4 +15,9 @@
     <string name="error_too_many_requests">Trop de requetes, réessayer plus tard</string>
     <string name="generic_loading_error">Une erreur s\'est produite lors de la récupération des données</string>
     <string name="freeText">Gratuit</string>
+    <string name="content_description_empty_search">image  aucun resultat de recherche</string>
+    <string name="search_view_title">Recherche</string>
+    <string name="search_list_title">Nombre de résultats: %d</string>
+    <string name="game_detail_title">Detail du jeu</string>
+    <string name="empty_search_result">Désolé, nous n\'avons pas trouvé de jeu nommé \"%s\"</string>
 </resources>

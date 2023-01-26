@@ -14,5 +14,10 @@
     <string name="error_too_many_requests">Too many requests</string>
     <string name="generic_loading_error">Some error happened when fetching data</string>
     <string name="freeText">Free</string>
+    <string name="content_description_empty_search">empty search picture</string>
+    <string name="search_view_title">Search</string>
+    <string name="search_list_title">Number of result: %d</string>
+    <string name="game_detail_title">Detail du jeu</string>
+    <string name="empty_search_result">Sorry, we haven\'t found a game named \"%d\"</string>
 
 </resources>

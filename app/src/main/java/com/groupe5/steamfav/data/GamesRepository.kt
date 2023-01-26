@@ -4,21 +4,22 @@ import android.content.res.Resources
 import com.groupe5.steamfav.R
 import com.groupe5.steamfav.data.abstraction.GamesRepository
 import com.groupe5.steamfav.network.models.GameDetails
+import com.groupe5.steamfav.network.models.SearchItem
 import com.groupe5.steamfav.network.services.SteamStoreNetwork
 import com.groupe5.steamfav.network.services.SteamWorksWebNetwork
-import com.groupe5.steamfav.utils.Resource
+import com.groupe5.steamfav.utils.NetworkResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
-
+//Refactor doing to much thing
 class GamesRepository(
     private val steamWorksNetwork: SteamWorksWebNetwork,
     private val steamStoreWebNetwork: SteamStoreNetwork,
 ) : GamesRepository {
-    override fun getGames(): Flow<Resource<List<GameDetails>>> =
+    override fun getGames(): Flow<NetworkResult<List<GameDetails>>> =
         flow {
             val response = steamWorksNetwork.getMostPlayedGames()
             var list: List<GameDetails>? = null
@@ -30,7 +31,7 @@ class GamesRepository(
                     } else {
                         when (response.code()) {
                             429 -> emit(
-                                Resource.Error(
+                                NetworkResult.Error(
                                     Resources.getSystem()
                                         .getString(R.string.error_too_many_requests), null
                                 )
@@ -42,13 +43,13 @@ class GamesRepository(
                                 val errorMsg = gameDetailsResponse.errorBody()?.string()!!
                                 if (errorMsg == "null") {
                                     emit(
-                                        Resource.Error(
+                                        NetworkResult.Error(
                                             Resources.getSystem()
                                                 .getString(R.string.error_not_found_game), null
                                         )
                                     )
                                 } else {
-                                    emit(Resource.Error(errorMsg, null))
+                                    emit(NetworkResult.Error(errorMsg, null))
                                 }
                             }
                         }
@@ -56,15 +57,15 @@ class GamesRepository(
                         null
                     }
                 }
-                emit(Resource.Success(list))
+                emit(NetworkResult.Success(list))
 
             }
-            if (!list.isNullOrEmpty()) {
-                emit(Resource.Error("games not found", null))
+            if (list.isNullOrEmpty()) {
+                emit(NetworkResult.Error("games not found", null))
             }
 
         }.flowOn(Dispatchers.IO).catch {
-            emit(Resource.Error(it.localizedMessage ?: "an error occurred", null))
+            emit(NetworkResult.Error(it.localizedMessage ?: "an error occurred", null))
         }
 
 
@@ -72,7 +73,7 @@ class GamesRepository(
         TODO("Not yet implemented")
     }
 
-    override fun getSpotlightGame(): Flow<Resource<GameDetails?>> =
+    override fun getSpotlightGame(): Flow<NetworkResult<GameDetails?>> =
         flow {
             val topReleasedGamesRequest =
                 steamWorksNetwork.getTopReleaseGamesOfThe3Months()
@@ -96,20 +97,50 @@ class GamesRepository(
                             }
                             continue
                         }
-                        emit(Resource.Success(gameDetails))
+                        emit(NetworkResult.Success(gameDetails))
                         isGameFound = true
                     }
 
                 }
                 if (retriedAttempt > 0 && !isGameFound) {
-                    emit(Resource.Error("No games found", null))
+                    emit(NetworkResult.Error("No games found", null))
                 }
             }
 
 
         }.flowOn(Dispatchers.IO)
             .catch {
-                emit(Resource.Error(it.localizedMessage ?: "an error occurred", null))
+                emit(NetworkResult.Error(it.localizedMessage ?: "an error occurred", null))
             }
+
+
+
+    override fun search(searchQuery: String): Flow<NetworkResult<List<SearchItem>>> =
+        flow {
+            val searchResult = steamStoreWebNetwork.search(searchQuery)
+            if (searchResult.isSuccessful) {
+                emit(NetworkResult.Success(searchResult.body()))
+            } else {
+                when (searchResult.code()) {
+                    429 -> emit(
+                        NetworkResult.Error(
+                            Resources.getSystem()
+                                .getString(R.string.error_too_many_requests), null
+                        )
+                    )
+                    200 ->
+                        searchResult.body()
+                    else -> {
+                        val errorMsg = searchResult.errorBody()?.string()!!
+                        emit(NetworkResult.Error(errorMsg, null))
+
+                    }
+                }
+            }
+        }.flowOn(Dispatchers.IO)
+            .catch {
+                emit(NetworkResult.Error(it.localizedMessage ?: "an error occurred", null))
+            }
+
 
 }

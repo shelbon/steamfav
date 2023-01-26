@@ -12,7 +12,18 @@
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_gameDetails"
+            app:enterAnim="@anim/fui_slide_in_right"
+            app:exitAnim="@anim/fui_slide_out_left"
+            app:popEnterAnim="@anim/fui_slide_in_right"
+            app:popExitAnim="@anim/fui_slide_out_left"
             app:destination="@id/gameDetails" />
+        <action
+            android:id="@+id/action_homeFragment_to_search_view"
+            app:enterAnim="@anim/fui_slide_in_right"
+            app:exitAnim="@anim/fui_slide_out_left"
+            app:popEnterAnim="@anim/fui_slide_in_right"
+            app:popExitAnim="@anim/fui_slide_out_left"
+            app:destination="@id/search_view" />
     </fragment>
     <fragment
         android:id="@+id/gameDetails"
@@ -24,4 +35,15 @@
             android:defaultValue="0L"
             app:argType="long" />
     </fragment>
+    <activity
+        android:id="@+id/search_view"
+        android:name="com.groupe5.steamfav.ui.activity.SearchableActivity"
+        android:label="search_view"
+        tools:layout="@layout/activity_search">
+        <argument android:name="searchQuery"
+            android:defaultValue=""
+            app:argType="string"/>
+    </activity>
+    <action android:id="@+id/action_global_gameDetails"
+     app:destination="@id/gameDetails" />
 </navigation>

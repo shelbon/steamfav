@@ -5,19 +5,19 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import com.groupe5.steamfav.data.abstraction.GamesRepository
 import com.groupe5.steamfav.network.models.GameDetails
-import com.groupe5.steamfav.utils.Resource
+import com.groupe5.steamfav.utils.NetworkResult
 
 
 import kotlinx.coroutines.flow.onStart
 
 class HomeViewModel(private val gamesRepository: GamesRepository) : ViewModel() {
-    val games: LiveData<Resource<List<GameDetails>>>
+    val games: LiveData<NetworkResult<List<GameDetails>>>
         get() =
             gamesRepository.getGames().onStart {
-                emit(Resource.Loading())
+                emit(NetworkResult.Loading())
             }.asLiveData()
-    val spotLightGame: LiveData<Resource<GameDetails?>>
+    val spotLightGame: LiveData<NetworkResult<GameDetails?>>
         get() = gamesRepository.getSpotlightGame().onStart {
-            emit(Resource.Loading())
+            emit(NetworkResult.Loading())
         }.asLiveData()
 }

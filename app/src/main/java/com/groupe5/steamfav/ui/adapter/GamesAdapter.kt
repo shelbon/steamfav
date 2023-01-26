@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.groupe5.steamfav.R
@@ -26,10 +25,10 @@ class GamesAdapter(private val itemClickListener: ItemClickListener<GameItem>) :
             itemBinding.root
         ) {
         fun setData(gameItem: GameItem) {
-            val priceStringBuilder = StringBuilder();
-            priceStringBuilder.append(itemBinding.root.context.getString(R.string.price));
+            val priceStringBuilder = StringBuilder()
+            priceStringBuilder.append(itemBinding.root.context.getString(R.string.price))
             priceStringBuilder.append(":")
-            priceStringBuilder.append(gameItem.price);
+            priceStringBuilder.append(gameItem.price)
             with(itemBinding) {
                 gameTitle.text = gameItem.name
                 gamePrice.apply{
@@ -39,7 +38,7 @@ class GamesAdapter(private val itemClickListener: ItemClickListener<GameItem>) :
                 }
 
                 gameEditors.text = gameItem.publishers.joinToString(",\n")
-                Glide.with(itemBinding.root)
+                Glide.with(itemBinding.root).asDrawable()
                     .load(gameItem.backgroundImage)
 
                     .into(object : CustomTarget<Drawable>() {
@@ -48,6 +47,7 @@ class GamesAdapter(private val itemClickListener: ItemClickListener<GameItem>) :
                             transition: Transition<in Drawable>?
                         ) {
                             itemBinding.gameItemLayout.background = resource
+
                         }
 
                         override fun onLoadCleared(placeholder: Drawable?) {
@@ -64,7 +64,7 @@ class GamesAdapter(private val itemClickListener: ItemClickListener<GameItem>) :
 
     private class DiffCallback : DiffUtil.ItemCallback<GameItem>() {
         override fun areItemsTheSame(oldItem: GameItem, newItem: GameItem): Boolean {
-            return oldItem == newItem
+            return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(oldItem: GameItem, newItem: GameItem): Boolean {

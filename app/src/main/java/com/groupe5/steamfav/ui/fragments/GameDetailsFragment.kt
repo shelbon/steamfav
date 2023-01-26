@@ -6,28 +6,51 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
 import com.groupe5.steamfav.R
+import com.groupe5.steamfav.data.GamesRepository
+import com.groupe5.steamfav.databinding.FragmentGameDetailsBinding
+import com.groupe5.steamfav.databinding.FragmentSearchBinding
+import com.groupe5.steamfav.network.services.SteamStoreNetwork
+import com.groupe5.steamfav.network.services.SteamWorksWebNetwork
 import com.groupe5.steamfav.viewmodels.GameDetailsViewModel
+import com.groupe5.steamfav.viewmodels.SearchViewModel
+import com.groupe5.steamfav.viewmodels.factory.ViewModelFactory
 
 class GameDetails : Fragment() {
 
-    companion object {
-        fun newInstance() = GameDetails()
-    }
 
-    private lateinit var viewModel: GameDetailsViewModel
+    private val viewModel: GameDetailsViewModel by viewModels {
+        ViewModelFactory(
+            this,
+            GamesRepository(
+                SteamWorksWebNetwork(),
+                SteamStoreNetwork()
+            )
+        )
+    }
+    private val args by navArgs<GameDetailsArgs>()
+    private var _binding: FragmentGameDetailsBinding? = null
+    private val binding get() = _binding!!
+    private lateinit var appBarConfiguration: AppBarConfiguration
+    private val navController by lazy {
+        findNavController()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_game_details, container, false)
+        _binding = FragmentGameDetailsBinding.inflate(inflater, container, false)
+        binding.gameDetailsText.text = args.gameId.toString()
+        appBarConfiguration = AppBarConfiguration(setOf(R.navigation.main, R.navigation.search))
+        NavigationUI.setupWithNavController(binding.toolbar, navController, appBarConfiguration)
+        return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this)[GameDetailsViewModel::class.java]
-        // TODO: Use the ViewModel
-    }
 
 }
