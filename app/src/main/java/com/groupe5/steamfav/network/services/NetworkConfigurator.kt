@@ -36,13 +36,13 @@ class NetworkConfigurator {
 
     fun provideRetrofit(
         apiName: ApiName,
-        adapter: Adapter? = null,
+        adapters: List<Adapter> = emptyList(),
         okHttpClient: OkHttpClient = provideOkHttpClient(),
     ): Retrofit {
         val baseUrl = provideBaseUrl(apiName)
         val moshiBuilder = Moshi.Builder()
-        adapter?.let { nonNullAdapter ->
-            moshiBuilder.add(nonNullAdapter)
+        adapters.forEach { adapter ->
+            moshiBuilder.add(adapter)
         }
         moshiBuilder.addLast(KotlinJsonAdapterFactory())
         return Retrofit.Builder()

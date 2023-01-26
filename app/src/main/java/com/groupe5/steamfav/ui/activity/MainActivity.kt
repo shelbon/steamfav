@@ -1,4 +1,4 @@
-package com.groupe5.steamfav
+package com.groupe5.steamfav.ui.activity
 
 import android.os.Bundle
 import android.view.Menu
@@ -8,12 +8,13 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.onNavDestinationSelected
-import androidx.navigation.ui.setupActionBarWithNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.groupe5.steamfav.BuildConfig
+import com.groupe5.steamfav.R
 import com.groupe5.steamfav.databinding.ActivityMainBinding
 
 
