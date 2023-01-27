@@ -10,7 +10,7 @@ import java.io.IOException
 
 
 class RateLimitInterceptor : Interceptor {
-    private val limiter = RateLimiter.create(3.0)
+    private val limiter = RateLimiter.create(1.0)
 
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
