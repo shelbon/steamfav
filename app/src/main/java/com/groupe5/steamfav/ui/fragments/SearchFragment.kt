@@ -57,7 +57,7 @@ class SearchFragment : Fragment(), ItemClickListener<GameItem> {
 
         appBarConfiguration = AppBarConfiguration(setOf(R.navigation.main, R.navigation.search))
         setupWithNavController(binding.toolbar, navController, appBarConfiguration)
-        val searchQuery = args.searchQuery
+        var searchQuery = args.searchQuery
         val adapter = GamesAdapter(this)
         binding.toolbar.setNavigationOnClickListener {
             NavUtils.navigateUpFromSameTask(this.requireActivity())
@@ -71,6 +71,7 @@ class SearchFragment : Fragment(), ItemClickListener<GameItem> {
             }
 
             override fun onQueryTextSubmit(newSearchQuery: String): Boolean {
+                searchQuery=newSearchQuery
                 viewModel.searchQuery(newSearchQuery)
                 viewModel.refreshData()
 
@@ -102,7 +103,7 @@ class SearchFragment : Fragment(), ItemClickListener<GameItem> {
 
                         adapter.submitList(response.data?.map { searchItem ->
 
-                                val price = when (searchItem.price.onlyLetters()) {
+                                val price = when (searchItem.price.split("-").joinToString("").onlyLetters()) {
                                     true -> getString(R.string.freeText)
                                     false -> searchItem.price
                                 }

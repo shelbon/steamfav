@@ -23,4 +23,4 @@ fun TextView.applyUnderlineEndingAtDelimiter(delimiter: String=":"){
         this.text = spannable
     }
 }
-fun String.onlyLetters() = all { it.isDefined() }
+fun String.onlyLetters() = all { it.isLetter() }
