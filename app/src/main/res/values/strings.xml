@@ -17,7 +17,7 @@
     <string name="content_description_empty_search">empty search picture</string>
     <string name="search_view_title">Search</string>
     <string name="search_list_title">Number of result: %d</string>
-    <string name="game_detail_title">Detail du jeu</string>
+    <string name="game_detail_title">Game details</string>
     <string name="empty_search_result">Sorry, we haven\'t found a game named \"%s\"</string>
 
 </resources>
