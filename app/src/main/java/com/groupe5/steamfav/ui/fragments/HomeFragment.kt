@@ -166,7 +166,7 @@ class HomeFragment : Fragment(), ItemClickListener<GameItem> {
     }
 
     override fun onItemClick(item: GameItem) {
-        val action = HomeFragmentDirections.actionHomeFragmentToGameDetails(item.id)
+        val action = HomeFragmentDirections.actionHomeFragmentToGameDetailsFragment(item.id)
         findNavController().navigate(action)
     }
 

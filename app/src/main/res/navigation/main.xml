@@ -8,42 +8,38 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.groupe5.steamfav.ui.fragments.HomeFragment"
-        android:label="fragment_home"
+        android:label="@string/home_fragment_title"
         tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/action_homeFragment_to_gameDetails"
+            android:id="@+id/action_homeFragment_to_gameDetailsFragment"
+            app:destination="@id/game_details_dest"
             app:enterAnim="@anim/fui_slide_in_right"
             app:exitAnim="@anim/fui_slide_out_left"
             app:popEnterAnim="@anim/fui_slide_in_right"
-            app:popExitAnim="@anim/fui_slide_out_left"
-            app:destination="@id/gameDetails" />
+            app:popExitAnim="@anim/fui_slide_out_left" >
+            <argument
+                android:name="gameId"
+                android:defaultValue="0L"
+                app:argType="long" />
+        </action>
         <action
             android:id="@+id/action_homeFragment_to_search_view"
+            app:destination="@id/search_view"
             app:enterAnim="@anim/fui_slide_in_right"
             app:exitAnim="@anim/fui_slide_out_left"
             app:popEnterAnim="@anim/fui_slide_in_right"
-            app:popExitAnim="@anim/fui_slide_out_left"
-            app:destination="@id/search_view" />
+            app:popExitAnim="@anim/fui_slide_out_left" />
     </fragment>
-    <fragment
-        android:id="@+id/gameDetails"
-        android:name="com.groupe5.steamfav.ui.fragments.GameDetails"
-        android:label="fragment_game_details"
-        tools:layout="@layout/fragment_game_details" >
-        <argument
-            android:name="gameId"
-            android:defaultValue="0L"
-            app:argType="long" />
-    </fragment>
+    <include  app:graph="@navigation/game_details"/>
     <activity
         android:id="@+id/search_view"
         android:name="com.groupe5.steamfav.ui.activity.SearchableActivity"
-        android:label="search_view"
+        android:label="@string/search_view_title"
         tools:layout="@layout/activity_search">
-        <argument android:name="searchQuery"
+        <argument
+            android:name="searchQuery"
             android:defaultValue=""
-            app:argType="string"/>
+            app:argType="string" />
     </activity>
-    <action android:id="@+id/action_global_gameDetails"
-     app:destination="@id/gameDetails" />
+
 </navigation>

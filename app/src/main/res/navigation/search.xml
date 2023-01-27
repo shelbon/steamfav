@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     app:startDestination="@id/navigation_search_view">
 
-    <include  app:graph="@navigation/main"/>
+    <include  app:graph="@navigation/game_details"/>
     <fragment
         android:id="@+id/navigation_search_view"
         android:name="com.groupe5.steamfav.ui.fragments.SearchFragment"
@@ -15,12 +15,12 @@
             android:defaultValue=""
             app:argType="string"/>
     </fragment>
-<action android:id="@id/action_global_gameDetails"
-    app:enterAnim="@anim/fui_slide_in_right"
-    app:exitAnim="@anim/fui_slide_out_left"
-    app:popEnterAnim="@anim/fui_slide_in_right"
-    app:popExitAnim="@anim/fui_slide_out_left"
-app:destination="@id/gameDetails"
-    />
-
+    <action
+        android:id="@+id/show_game_details"
+        app:destination="@id/game_details_dest"
+        app:enterAnim="@anim/fui_slide_in_right"
+        app:exitAnim="@anim/fui_slide_out_left"
+        app:popEnterAnim="@anim/fui_slide_in_right"
+        app:popExitAnim="@anim/fui_slide_out_left"
+        />
 </navigation>

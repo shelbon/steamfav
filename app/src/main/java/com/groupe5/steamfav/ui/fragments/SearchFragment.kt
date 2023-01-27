@@ -121,7 +121,7 @@ class SearchFragment : Fragment(), ItemClickListener<GameItem> {
                         binding.groupSearchResult.visibility = View.VISIBLE
                     }
                     //FIXME recyclerview show previous data before refresh
-                    //FIXME  price text and empty result icon
+                    //TODO  change empty result icon
                 }
                 NetworkResult.Status.ERROR -> Toast.makeText(
                     this.requireContext(),
@@ -141,12 +141,8 @@ class SearchFragment : Fragment(), ItemClickListener<GameItem> {
     }
 
     override fun onItemClick(item: GameItem) {
-        val navController = findNavController()
-        navController.setGraph(R.navigation.main)
         val bundle = bundleOf("gameId" to item.id)
-        /*FIXME nav stack lost  search-> gamedetail,back press gameDetail -> home
-         instead of search */
-        navController.navigate(R.id.action_global_gameDetails, bundle)
+        findNavController().navigate(GameDetailsDirections.showGameDetails(item.id))
     }
 
 
