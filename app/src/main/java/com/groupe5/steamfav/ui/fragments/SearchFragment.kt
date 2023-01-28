@@ -103,7 +103,7 @@ class SearchFragment : Fragment(), ItemClickListener<GameItem> {
 
                         adapter.submitList(response.data?.map { searchItem ->
 
-                                val price = when (searchItem.price.split("-").joinToString("").onlyLetters()) {
+                                val price = when (searchItem.price.split(" ","-").joinToString("").onlyLetters()) {
                                     true -> getString(R.string.freeText)
                                     false -> searchItem.price
                                 }
@@ -115,12 +115,13 @@ class SearchFragment : Fragment(), ItemClickListener<GameItem> {
                                     searchItem.img,
                                     searchItem.img)
 
-                        })
-                        binding.groupEmptyResult.visibility = View.GONE
-                        binding.searchLoader.visibility = View.GONE
-                        binding.groupSearchResult.visibility = View.VISIBLE
+                        }).also {
+                            binding.groupEmptyResult.visibility = View.GONE
+                            binding.searchLoader.visibility = View.GONE
+                            binding.groupSearchResult.visibility = View.VISIBLE
+                        }
+
                     }
-                    //FIXME recyclerview show previous data before refresh
                     //TODO  change empty result icon
                 }
                 NetworkResult.Status.ERROR -> Toast.makeText(
