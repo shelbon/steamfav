@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.core.app.NavUtils
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -115,14 +114,12 @@ class SearchFragment : Fragment(), ItemClickListener<GameItem> {
                                     searchItem.img,
                                     searchItem.img)
 
-                        }).also {
-                            binding.groupEmptyResult.visibility = View.GONE
-                            binding.searchLoader.visibility = View.GONE
-                            binding.groupSearchResult.visibility = View.VISIBLE
-                        }
-
+                        })
+                        binding.groupEmptyResult.visibility = View.GONE
+                        binding.searchLoader.visibility = View.GONE
+                        binding.groupSearchResult.visibility = View.VISIBLE
                     }
-                    //TODO  change empty result icon
+
                 }
                 NetworkResult.Status.ERROR -> Toast.makeText(
                     this.requireContext(),
@@ -140,9 +137,7 @@ class SearchFragment : Fragment(), ItemClickListener<GameItem> {
 
         return binding.root
     }
-
     override fun onItemClick(item: GameItem) {
-        val bundle = bundleOf("gameId" to item.id)
         findNavController().navigate(GameDetailsDirections.showGameDetails(item.id))
     }
 
