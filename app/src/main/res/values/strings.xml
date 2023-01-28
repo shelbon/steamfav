@@ -1,6 +1,23 @@
 <resources>
-    <string name="app_name">steamfav</string>
-    <string name="title_activity_main">MainActivity</string>
-    <string name="search_hint">Rechercher un jeu…</string>
+    <string name="app_name">Steamfav</string>
+    <string name="title_activity_main">@string/app_name</string>
+    <string name="search_hint">Search for a game…</string>
+    <string name="read_more">Read more</string>
+    <string name="homeListTitle">The best sellers</string>
+    <string name="menu_likes">Likes</string>
+    <string name="menu_whishlist">whishlist</string>
+    <string name="content_description_spotlight_game">game cover</string>
+    <string name="home_fragment_title">Home</string>
+    <string name="loading_text">Loading…</string>
+    <string name="price">Price</string>
+    <string name="error_not_found_game">Same games was not found</string>
+    <string name="error_too_many_requests">Too many requests</string>
+    <string name="generic_loading_error">Some error happened when fetching data</string>
+    <string name="freeText">Free</string>
+    <string name="content_description_empty_search">empty search picture</string>
+    <string name="search_view_title">Search</string>
+    <string name="search_list_title">Number of result: %d</string>
+    <string name="game_detail_title">Game details</string>
+    <string name="empty_search_result">Sorry, we haven\'t found a game named \"%s\"</string>
 
 </resources>

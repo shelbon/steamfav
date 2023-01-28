@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/game_details_dest"
+    app:startDestination="@id/gameDetailsFragment"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <fragment
+        android:id="@+id/gameDetailsFragment"
+        android:name="com.groupe5.steamfav.ui.fragments.GameDetails"
+        android:label="@string/game_detail_title"
+        tools:layout="@layout/fragment_game_details">
+        <argument
+            android:name="gameId"
+            android:defaultValue="0L"
+            app:argType="long" />
+    </fragment>
+    <action android:id="@+id/show_game_details"
+        app:enterAnim="@anim/fui_slide_in_right"
+        app:exitAnim="@anim/fui_slide_out_left"
+        app:popEnterAnim="@anim/fui_slide_in_right"
+        app:popExitAnim="@anim/fui_slide_out_left"
+        app:destination="@id/gameDetailsFragment"
+        />
+</navigation>

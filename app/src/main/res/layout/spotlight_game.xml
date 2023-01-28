@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/spotlight_game_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="25dp"
+    tools:background="@tools:sample/backgrounds/scenic">
+
+    <TextView
+        android:id="@+id/network_status_spotlight_game"
+        style="@style/TextAppearance.App.TitleMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Loading"
+        tools:visibility="visible" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="game_title,game_description,btn_read_more,game_cover" />
+
+    <TextView
+        android:id="@+id/game_title"
+        style="@style/TextAppearance.App.TitleMedium"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/game_description"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Titan Fall 2 Ultimate Edition" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/game_description"
+        style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="8"
+        app:layout_constraintEnd_toStartOf="@id/guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/game_title"
+        tools:text="Une description d’un jeu mis en avant
+(peu être fait en dur)" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.56"
+        app:layout_constraintStart_toEndOf="@id/game_description"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_read_more"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/read_more"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@id/game_description"
+        app:layout_constraintTop_toBottomOf="@id/game_description" />
+
+    <ImageView
+        android:id="@+id/game_cover"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:contentDescription="@string/content_description_spotlight_game"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/guideline"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@tools:sample/avatars" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

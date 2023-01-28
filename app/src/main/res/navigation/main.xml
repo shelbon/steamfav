@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.groupe5.steamfav.ui.fragments.HomeFragment"
+        android:label="@string/home_fragment_title"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_gameDetailsFragment"
+            app:destination="@id/game_details_dest"
+            app:enterAnim="@anim/fui_slide_in_right"
+            app:exitAnim="@anim/fui_slide_out_left"
+            app:popEnterAnim="@anim/fui_slide_in_right"
+            app:popExitAnim="@anim/fui_slide_out_left" >
+            <argument
+                android:name="gameId"
+                android:defaultValue="0L"
+                app:argType="long" />
+        </action>
+        <action
+            android:id="@+id/action_homeFragment_to_search_view"
+            app:destination="@id/search_view"
+            app:enterAnim="@anim/fui_slide_in_right"
+            app:exitAnim="@anim/fui_slide_out_left"
+            app:popEnterAnim="@anim/fui_slide_in_right"
+            app:popExitAnim="@anim/fui_slide_out_left" />
+    </fragment>
+    <include  app:graph="@navigation/game_details"/>
+    <activity
+        android:id="@+id/search_view"
+        android:name="com.groupe5.steamfav.ui.activity.SearchableActivity"
+        android:label="@string/search_view_title"
+        tools:layout="@layout/activity_search">
+        <argument
+            android:name="searchQuery"
+            android:defaultValue=""
+            app:argType="string" />
+    </activity>
+
+</navigation>

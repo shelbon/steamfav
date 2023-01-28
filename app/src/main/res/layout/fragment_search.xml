@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        style="@style/Widget.App.Toolbar"
+        android:elevation="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:title="@string/search_view_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:menu="@menu/main" />
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_empty_result"
+        app:constraint_referenced_ids="empty_search_image,empty_search_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_search_result"
+        app:constraint_referenced_ids="search_results,list_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/search_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+    <ImageView
+        android:id="@+id/empty_search_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:src="@drawable/game_not_found"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:src="@tools:sample/avatars"
+        android:contentDescription="@string/content_description_empty_search" />
+    <TextView
+        android:id="@+id/empty_search_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintTop_toBottomOf="@id/empty_search_image"
+        tools:text="Sorry we are not able to found the game"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/search_loader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:indeterminate="true"
+        app:indicatorColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@id/list_title"
+        style="@style/TextAppearance.App.TitleMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="18dp"
+        android:text="@string/search_list_title"
+        app:layout_constraintBottom_toTopOf="@id/search_results"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_bar" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/search_results"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        tools:listitem="@layout/game_item"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/list_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
