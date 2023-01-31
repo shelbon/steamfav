@@ -43,6 +43,7 @@ class SearchFragment : Fragment(), ItemClickListener<GameItem> {
                 SteamWorksWebNetwork(),
                 SteamStoreNetwork(),
             ),
+            null,
             args.toBundle()
         )
     }
@@ -138,7 +139,7 @@ class SearchFragment : Fragment(), ItemClickListener<GameItem> {
         return binding.root
     }
     override fun onItemClick(item: GameItem) {
-        findNavController().navigate(GameDetailsDirections.showGameDetails(item.id))
+        findNavController().navigate(GameDetailsFragmentDirections.showGameDetails(item.id))
     }
 
 

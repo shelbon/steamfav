@@ -21,6 +21,7 @@ class GameDetailAdapter : DeserializeAdapter<GameDetailResponse, GameDetails> {
                                 gameDetailResponse.shortDescription ?:"",
                                 gameDetailResponse.headerImage  ,
                                 gameDetailResponse.backgroundImage ?:"",
+                                gameDetailResponse.backgroundRaw,
                                 gameDetailResponse.priceOverview,
                                 gameDetailResponse.publishers ?: emptyList(),
                             )

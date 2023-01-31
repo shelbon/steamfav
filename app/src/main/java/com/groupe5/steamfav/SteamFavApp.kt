@@ -1,7 +1,7 @@
 package com.groupe5.steamfav
 
 import android.app.Application
-import timber.log.Timber.*
+import timber.log.Timber.DebugTree
 import timber.log.Timber.Forest.plant
 
 

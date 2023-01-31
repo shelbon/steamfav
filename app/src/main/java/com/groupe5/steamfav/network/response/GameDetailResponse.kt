@@ -33,6 +33,8 @@ data class Data(
     val headerImage: String,
     @Json(name = "background")
     val backgroundImage: String,
+    @Json(name = "background_raw")
+    val backgroundRaw: String,
     @Json(name = "publishers")
     val publishers: List<String>? = emptyList(),
     @Json(name = "price_overview")

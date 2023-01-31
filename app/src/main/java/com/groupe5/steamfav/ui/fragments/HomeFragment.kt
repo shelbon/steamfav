@@ -38,7 +38,7 @@ class HomeFragment : Fragment(), ItemClickListener<GameItem> {
             GamesRepository(
                 SteamWorksWebNetwork(),
                 SteamStoreNetwork()
-            )
+            ),null
         )
     }
     private var _binding: FragmentHomeBinding? = null
