@@ -11,7 +11,7 @@ class ReviewResponseAdapter: DeserializeAdapter<ReviewResponse, List<Review>> {
     @FromJson
     override fun from(obj: ReviewResponse): List<Review> {
           if(obj.success==1L){
-              return obj.reviews.map {
+              return obj.reviews?.map {
                   review ->
                   Review(
                       review.recommendationid.toLong(),
@@ -22,7 +22,7 @@ class ReviewResponseAdapter: DeserializeAdapter<ReviewResponse, List<Review>> {
                       Random.nextInt(5),
                       review.review
                   )
-              }
+              }?: emptyList()
           }
          return emptyList()
     }

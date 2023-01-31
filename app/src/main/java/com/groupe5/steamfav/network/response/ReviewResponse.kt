@@ -6,10 +6,10 @@ data class ReviewResponse (
     val success: Long,
 
     @Json(name = "query_summary")
-    val querySummary: QuerySummary,
+    val querySummary: QuerySummary?,
 
-    val reviews: List<Review>,
-    val cursor: String
+    val reviews: List<Review>?,
+    val cursor: String?
 )
 
 data class QuerySummary (

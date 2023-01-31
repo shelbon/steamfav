@@ -22,34 +22,19 @@ import com.groupe5.steamfav.network.services.SteamWorksWebNetwork
 import com.groupe5.steamfav.ui.adapter.GameDetailsViewPagerAdapter
 import com.groupe5.steamfav.utils.NetworkResult
 import com.groupe5.steamfav.viewmodels.GameDetailsViewModel
-import com.groupe5.steamfav.viewmodels.factory.ViewModelFactory
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class GameDetailsFragment : Fragment() {
 
 
-    private val args by navArgs<GameDetailsFragmentArgs>()
+    private val viewModel: GameDetailsViewModel by viewModel()
     private var _binding: FragmentGameDetailsBinding? = null
     private val binding get() = _binding!!
     private lateinit var appBarConfiguration: AppBarConfiguration
     private val navController by lazy {
         findNavController()
     }
-    private val viewModel: GameDetailsViewModel by viewModels {
-        ViewModelFactory(
-            this,
-            GamesRepository(
-                SteamWorksWebNetwork(),
-                SteamStoreNetwork(),
-            ),
-            GameReviewsRepository(
-                SteamCommunityNetwork(),
-                SteamStoreNetwork()
-            ),
-            args.toBundle()
-        )
-    }
-     //TODO reviews from steam api
-    //TODO add to likes and wishlist
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

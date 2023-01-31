@@ -5,21 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import com.groupe5.steamfav.R
 import com.groupe5.steamfav.databinding.FragmentReviewsBinding
 import com.groupe5.steamfav.utils.NetworkResult
 import com.groupe5.steamfav.viewmodels.GameDetailsViewModel
-
-/**
- * A fragment representing a list of Items.
- */
+import org.koin.androidx.viewmodel.ext.android.viewModel
 class ReviewsFragment : Fragment() {
 
 
     private var _binding: FragmentReviewsBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: GameDetailsViewModel by viewModels({ requireParentFragment() })
+    private val viewModel: GameDetailsViewModel by viewModel(ownerProducer = {requireParentFragment()})
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
