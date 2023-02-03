@@ -3,7 +3,12 @@ package com.groupe5.steamfav.ui.fragments
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.core.text.HtmlCompat
 import androidx.core.text.PrecomputedTextCompat
@@ -12,6 +17,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.onNavDestinationSelected
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
@@ -19,17 +25,11 @@ import com.google.firebase.auth.FirebaseAuth
 import com.groupe5.steamfav.R
 import com.groupe5.steamfav.abstraction.ItemClickListener
 import com.groupe5.steamfav.databinding.FragmentHomeBinding
-
-import com.groupe5.steamfav.network.services.SteamStoreNetwork
-import com.groupe5.steamfav.network.services.SteamWorksWebNetwork
 import com.groupe5.steamfav.ui.activity.MainActivity
 import com.groupe5.steamfav.ui.adapter.GamesAdapter
 import com.groupe5.steamfav.ui.models.GameItem
 import com.groupe5.steamfav.utils.NetworkResult
 import com.groupe5.steamfav.utils.setupActionBarFromFragment
-import com.groupe5.steamfav.ui.adapter.GamesAdapter
-import com.groupe5.steamfav.ui.models.GameItem
-import com.groupe5.steamfav.utils.NetworkResult
 import com.groupe5.steamfav.viewmodels.AuthViewModel
 import com.groupe5.steamfav.viewmodels.HomeViewModel
 import org.koin.android.ext.android.inject
