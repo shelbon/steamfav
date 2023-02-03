@@ -31,6 +31,7 @@ android {
             buildConfigField "String", "STEAM_STORE_API_BASE_URL", "\"https://store.steampowered.com/api/\""
             buildConfigField "String","STEAM_WORKS_WEB_API_BASE_URL","\"https://api.steampowered.com/\""
             buildConfigField "String","STEAM_STORE_BASE_URL","\"https://store.steampowered.com/\""
+            buildConfigField "String","STEAM_COMMUNITY_API_BASE_URL","\"https://steamcommunity.com/\""
         }
         release {
             minifyEnabled true
@@ -43,6 +44,8 @@ android {
 
             buildConfigField "String","STEAM_STORE_BASE_URL","\"https://store.steampowered.com/\""
 
+            buildConfigField "String","STEAM_COMMUNITY_API_BASE_URL","\"https://steamcommunity.com/\""
+
         }
         mock {
             initWith debug
@@ -50,6 +53,7 @@ android {
             buildConfigField "String","STEAM_STORE_API_BASE_URL","\"http://10.0.2.2:3001/api/\""
             buildConfigField "String", "STEAM_WORKS_WEB_API_BASE_URL", "\"http://10.0.2.2:3001\""
             buildConfigField "String", "STEAM_STORE_BASE_URL", "\"http://10.0.2.2:3001\""
+            buildConfigField "String","STEAM_COMMUNITY_API_BASE_URL", "\"http://10.0.2.2:3001\""
         }
     }
 
@@ -109,6 +113,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
     implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:2.5.1"
     implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
     kapt "com.squareup.moshi:moshi-kotlin-codegen:1.14.0"
     implementation "com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2"
     // end of http and api dependencies

@@ -1,6 +1,8 @@
 package com.groupe5.steamfav.network.response
 
+import android.os.Parcelable
 import com.squareup.moshi.Json
+import kotlinx.android.parcel.Parcelize
 
 
 typealias GameDetailResponse = Map<String, ResponseData>
@@ -33,12 +35,15 @@ data class Data(
     val headerImage: String,
     @Json(name = "background")
     val backgroundImage: String,
+    @Json(name = "background_raw")
+    val backgroundRaw: String,
     @Json(name = "publishers")
     val publishers: List<String>? = emptyList(),
     @Json(name = "price_overview")
     val priceOverview: PriceOverview? = null,
 )
 
+@Parcelize
 data class PriceOverview(
     val currency: String,
     val initial: Long,
@@ -52,5 +57,5 @@ data class PriceOverview(
 
     @Json(name = "final_formatted")
     val finalFormatted: String
-)
+) : Parcelable
 

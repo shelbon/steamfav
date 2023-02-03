@@ -8,7 +8,7 @@
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/whishlist_fragment"
-        android:icon="@drawable/ic_whishlist"
+        android:icon="@drawable/ic_wishlist"
         android:title="@string/menu_whishlist"
         app:showAsAction="ifRoom" />
 

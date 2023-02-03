@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface GamesRepository {
     fun getGames(): Flow<NetworkResult<List<GameDetails>>>
-    suspend fun getGame(gameId: Long): Flow<GameDetails?>
+    suspend fun getGame(gameId: Long): Flow<NetworkResult<GameDetails?>>
     fun getSpotlightGame(): Flow<NetworkResult<GameDetails?>>
     fun search(searchQuery: String):Flow<NetworkResult<List<SearchItem>>>
 }

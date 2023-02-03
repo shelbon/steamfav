@@ -21,4 +21,17 @@
     <string name="game_detail_title">Detail du jeu</string>
     <string name="empty_search_result">Désolé, nous n\'avons pas trouvé de jeu nommé \"%s\"</string>
     <string name="email_input_label">Email</string>
+    <string name="game_detail_tab_description">Description</string>
+    <string name="game_detail_tab_reviews">Reviews</string>
+    <string name="no_data">Aucun %s  as été trouver </string>
+    <string name="no_reviews">Aucun avis n\'a été trouvé</string>
+    <string name="Reviews_label">Avis</string>
+    <string name="review_rating_content_description">note de l\'avis</string>
+    <string name="liked_game_fragment_title">Liked</string>
+    <string name="remove_liked_failed_not_found">La Suppression du jeu à échoué,le jeu n\'est pas dans votre liste de jeux aimé </string>
+    <string name="game_added_to_liked">Jeu ajouté au favoris</string>
+    <string name="game_removed_to_liked">Jeu retiré des favoris</string>
+    <string name="game_removed_from_wishlist">Jeu retiré de votre liste de souhait</string>
+    <string name="game_added_to_wishlist">Jeu ajotuer a votre liste de souhait</string>
+    <string name="game_not_added_to_wishlist">Le jeu ne peut pas être ajouté a votre liste de souhait</string>
 </resources>

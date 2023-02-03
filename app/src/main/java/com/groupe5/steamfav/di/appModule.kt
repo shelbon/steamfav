@@ -6,6 +6,7 @@ import com.groupe5.steamfav.viewmodels.AuthViewModel
 import com.groupe5.steamfav.viewmodels.GameDetailsViewModel
 import com.groupe5.steamfav.viewmodels.HomeViewModel
 import com.groupe5.steamfav.viewmodels.SearchViewModel
+import com.groupe5.steamfav.viewmodels.UserDataViewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module
 
@@ -17,5 +18,6 @@ val appModule = module {
     viewModelOf(::HomeViewModel)
     viewModelOf(::SearchViewModel)
     viewModelOf(::GameDetailsViewModel)
+    viewModelOf(::UserDataViewModel)
     viewModelOf(::AuthViewModel)
 }

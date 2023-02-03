@@ -1,5 +1,6 @@
 package com.groupe5.steamfav.ui.fragments
 
+
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,6 +12,8 @@ import androidx.core.text.PrecomputedTextCompat
 import androidx.core.widget.TextViewCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
@@ -21,6 +24,7 @@ import com.groupe5.steamfav.databinding.FragmentHomeBinding
 import com.groupe5.steamfav.ui.adapter.GamesAdapter
 import com.groupe5.steamfav.ui.models.GameItem
 import com.groupe5.steamfav.utils.NetworkResult
+import com.groupe5.steamfav.viewmodels.AuthViewModel
 import com.groupe5.steamfav.viewmodels.HomeViewModel
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -29,11 +33,12 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class HomeFragment : Fragment(), ItemClickListener<GameItem> {
 
 
-
-    private val viewModel:HomeViewModel by viewModel()
+    private val viewModel: HomeViewModel by viewModel()
     private var _binding: FragmentHomeBinding? = null
     private val authProvider:FirebaseAuth by  inject()
     private val binding get() = _binding!!
+    private lateinit var appBarConfiguration: AppBarConfiguration
+    private val authViewModel: AuthViewModel by viewModel()
     private val navController by lazy {
         findNavController()
     }
@@ -42,7 +47,14 @@ class HomeFragment : Fragment(), ItemClickListener<GameItem> {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        appBarConfiguration = AppBarConfiguration(navController.graph)
+        NavigationUI.setupWithNavController(binding.toolbar, navController, appBarConfiguration)
         return binding.root
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -60,6 +72,7 @@ class HomeFragment : Fragment(), ItemClickListener<GameItem> {
             override fun onQueryTextChange(searchQuery: String): Boolean {
                 return true
             }
+
             override fun onQueryTextSubmit(searchQuery: String): Boolean {
                 val action = HomeFragmentDirections.actionHomeFragmentToSearchView(searchQuery)
                 findNavController().navigate(action)
@@ -79,7 +92,7 @@ class HomeFragment : Fragment(), ItemClickListener<GameItem> {
                                     data.name,
                                     data.publisher,
                                     data.priceOverview?.finalFormatted
-                                        ?: getString(R.string.freeText),
+                                        ?: getString(com.groupe5.steamfav.R.string.freeText),
                                     data.headerImage,
                                     data.backgroundImage
                                 )
@@ -87,7 +100,7 @@ class HomeFragment : Fragment(), ItemClickListener<GameItem> {
                         }
                         binding.spotlightGame.gameDescription.setTextFuture(
                             PrecomputedTextCompat.getTextFuture(
-                                HtmlCompat.fromHtml(data.shortDescription,0),
+                                HtmlCompat.fromHtml(data.shortDescription, 0),
                                 TextViewCompat.getTextMetricsParams(binding.spotlightGame.gameDescription),
                                 null
                             )
@@ -123,7 +136,7 @@ class HomeFragment : Fragment(), ItemClickListener<GameItem> {
                     binding.spotlightGame.group.visibility = View.GONE
                     binding.spotlightGame.networkStatusSpotlightGame.visibility = View.VISIBLE
                     binding.spotlightGame.networkStatusSpotlightGame.text =
-                        getString(R.string.loading_text)
+                        getString(com.groupe5.steamfav.R.string.loading_text)
                 }
             }
 
@@ -138,7 +151,8 @@ class HomeFragment : Fragment(), ItemClickListener<GameItem> {
                                 it.id,
                                 it.name,
                                 it.publisher,
-                                it.priceOverview?.finalFormatted ?: getString(R.string.freeText),
+                                it.priceOverview?.finalFormatted
+                                    ?: getString(com.groupe5.steamfav.R.string.freeText),
                                 it.headerImage,
                                 it.backgroundImage
                             )
@@ -151,11 +165,13 @@ class HomeFragment : Fragment(), ItemClickListener<GameItem> {
                 NetworkResult.Status.ERROR -> binding.statusOperation.text = response.message
                 NetworkResult.Status.LOADING -> {
                     binding.statusOperation.visibility = View.VISIBLE
-                    binding.statusOperation.text = getString(R.string.loading_text)
+                    binding.statusOperation.text =
+                        getString(com.groupe5.steamfav.R.string.loading_text)
                 }
             }
         }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
