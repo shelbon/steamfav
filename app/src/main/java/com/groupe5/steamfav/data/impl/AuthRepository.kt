@@ -10,9 +10,13 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.tasks.await
+import retrofit2.Response
 
-class AuthRepository(private val auth: FirebaseAuth) :
+ class AuthRepository(private val auth: FirebaseAuth) :
     com.groupe5.steamfav.data.abstraction.AuthRepository {
+      override fun signin(username: String, password: String): Flow<Response<Boolean>> {
+        TODO("Not yet implemented")
+       }
     override suspend fun loginFakeUser(): Flow<NetworkResult<Boolean>> = flow {
         emit(NetworkResult.Loading())
         auth.signInWithEmailAndPassword("johndoe@example.com", "john123**").await()

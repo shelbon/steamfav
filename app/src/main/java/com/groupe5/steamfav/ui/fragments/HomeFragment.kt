@@ -17,6 +17,8 @@ import androidx.navigation.ui.NavigationUI
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
+import com.google.firebase.auth.FirebaseAuth
+import com.groupe5.steamfav.R
 import com.groupe5.steamfav.abstraction.ItemClickListener
 import com.groupe5.steamfav.databinding.FragmentHomeBinding
 import com.groupe5.steamfav.ui.adapter.GamesAdapter
@@ -24,6 +26,7 @@ import com.groupe5.steamfav.ui.models.GameItem
 import com.groupe5.steamfav.utils.NetworkResult
 import com.groupe5.steamfav.viewmodels.AuthViewModel
 import com.groupe5.steamfav.viewmodels.HomeViewModel
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -32,13 +35,13 @@ class HomeFragment : Fragment(), ItemClickListener<GameItem> {
 
     private val viewModel: HomeViewModel by viewModel()
     private var _binding: FragmentHomeBinding? = null
+    private val authProvider:FirebaseAuth by  inject()
     private val binding get() = _binding!!
     private lateinit var appBarConfiguration: AppBarConfiguration
     private val authViewModel: AuthViewModel by viewModel()
     private val navController by lazy {
         findNavController()
     }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -56,7 +59,9 @@ class HomeFragment : Fragment(), ItemClickListener<GameItem> {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        authViewModel.connectFakeUser()
+        if(authProvider.currentUser==null){
+            navController.navigate(R.id.login_fragment)
+        }
         val gamesRecyclerView = binding.mostPlayedGameList
         val adapter = GamesAdapter(this)
         gamesRecyclerView.adapter = adapter

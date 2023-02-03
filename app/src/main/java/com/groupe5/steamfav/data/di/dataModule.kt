@@ -16,8 +16,12 @@ val dataModule = module {
     includes(
         networkModule
     )
-    singleOf(::GamesRepository) {
+
+    singleOf(::GamesRepository){
         bind<com.groupe5.steamfav.data.abstraction.GamesRepository>()
+    }
+    singleOf(::AuthRepository){
+        bind<com.groupe5.steamfav.data.abstraction.AuthRepository>()
     }
     single {
         FirebaseAuth.getInstance()
@@ -28,14 +32,10 @@ val dataModule = module {
     singleOf(::GameReviewsRepository) {
         bind<com.groupe5.steamfav.data.abstraction.GameReviewsRepository>()
     }
-    singleOf(::AuthRepository) {
-        bind<com.groupe5.steamfav.data.abstraction.AuthRepository>()
-    }
     singleOf(::LikedGamesRepository) {
         bind<com.groupe5.steamfav.data.abstraction.LikedGamesRepository>()
     }
     singleOf(::WishedGameRepository) {
         bind<com.groupe5.steamfav.data.abstraction.WishlistGameRepository>()
     }
-
 }
