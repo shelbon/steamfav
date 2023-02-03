@@ -25,4 +25,11 @@
     <string name="Reviews_label">Reviews</string>
     <string name="no_reviews">No reviews found</string>
     <string name="review_rating_content_description">review rating</string>
+    <string name="liked_game_fragment_title">Liked</string>
+    <string name="remove_liked_failed_not_found">Deleting the game failed, the game is not in your list of liked games</string>
+    <string name="game_added_to_liked">Game added to your liked list</string>
+    <string name="game_removed_to_liked">Game remove from liked list</string>
+    <string name="game_removed_from_wishlist">Game removed from your wishlist</string>
+    <string name="game_added_to_wishlist">Game added to your wishlist</string>
+    <string name="game_not_added_to_wishlist">Game could not be added to wishlist</string>
 </resources>

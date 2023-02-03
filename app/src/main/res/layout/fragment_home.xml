@@ -13,10 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        app:title="@string/home_fragment_title"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:menu="@menu/main" />
+        app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/search_bar"

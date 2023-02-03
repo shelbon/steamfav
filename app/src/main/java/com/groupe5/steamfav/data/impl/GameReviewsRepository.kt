@@ -1,4 +1,4 @@
-package com.groupe5.steamfav.data
+package com.groupe5.steamfav.data.impl
 
 import android.content.res.Resources
 import com.groupe5.steamfav.R
