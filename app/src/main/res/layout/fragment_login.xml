@@ -55,7 +55,7 @@
             android:minHeight="48dp"
             android:padding="8dp"
             android:textColor="@color/white" />
-        />
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout

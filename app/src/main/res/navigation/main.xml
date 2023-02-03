@@ -36,6 +36,7 @@
         android:label="@string/login_fragment_label"
         tools:layout="@layout/fragment_login">
     </fragment>
+
     <include  app:graph="@navigation/game_details"/>
     <activity
         android:id="@+id/search_view"
