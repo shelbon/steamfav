@@ -86,7 +86,8 @@ class SearchFragment : Fragment(), ItemClickListener<GameItem> {
 
                     if (response.data?.isEmpty() == true) {
                         binding.searchLoader.visibility = View.GONE
-                        binding.emptySearchText.text=getString(R.string.empty_search_result,searchQuery)
+                        binding.emptySearchText.text =
+                            getString(R.string.empty_search_result, searchQuery)
                         binding.groupEmptyResult.visibility = View.VISIBLE
                     } else {
                         binding.listTitle.text =
@@ -94,7 +95,8 @@ class SearchFragment : Fragment(), ItemClickListener<GameItem> {
 
                         adapter.submitList(response.data?.map { searchItem ->
 
-                            val price = when (searchItem.price.split(" ","-").joinToString("").onlyLetters()) {
+                            val price = when (searchItem.price.split(" ", "-").joinToString("")
+                                .onlyLetters()) {
                                 true -> getString(R.string.freeText)
                                 false -> searchItem.price
                             }
@@ -104,7 +106,8 @@ class SearchFragment : Fragment(), ItemClickListener<GameItem> {
                                 emptyList(),
                                 price,
                                 searchItem.img,
-                                searchItem.img)
+                                ""
+                            )
 
                         })
                         binding.groupEmptyResult.visibility = View.GONE
@@ -124,11 +127,10 @@ class SearchFragment : Fragment(), ItemClickListener<GameItem> {
                     binding.searchLoader.visibility = View.VISIBLE
                 }
             }
-
         }
     }
     override fun onItemClick(item: GameItem) {
-        findNavController().navigate(GameDetailsDirections.showGameDetails(item.id))
+        findNavController().navigate(GameDetailsFragmentDirections.showGameDetails(item.id))
     }
 
 

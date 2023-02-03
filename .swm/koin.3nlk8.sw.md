@@ -33,8 +33,6 @@ and In the application class
 
 <br/>
 
-<br/>
-
 
 <!-- NOTE-swimm-snippet: the lines below link your snippet to Swimm -->
 ### 📄 app/src/main/java/com/groupe5/steamfav/SteamFavApp.kt
@@ -87,15 +85,16 @@ declare singleton instance of a class with `singleOf`
 <!-- NOTE-swimm-snippet: the lines below link your snippet to Swimm -->
 ### 📄 app/src/main/java/com/groupe5/steamfav/data/di/dataModule.kt
 ```kotlin
-9      val dataModule= module{
-10         includes(
-11             networkModule
-12         )
-13         singleOf(::GamesRepository){
-14             bind<com.groupe5.steamfav.data.abstraction.GamesRepository>()
-15         }
-16     }
-17     
+10     val dataModule = module {
+11         includes(
+12             networkModule
+13         )
+14         singleOf(::GamesRepository) {
+15             bind<com.groupe5.steamfav.data.abstraction.GamesRepository>()
+16         }
+17         singleOf(::GameReviewsRepository) {
+18             bind<com.groupe5.steamfav.data.abstraction.GameReviewsRepository>()
+19         }
 ```
 
 <br/>
@@ -104,11 +103,11 @@ declare singleton instance of a class with `singleOf`
 <!-- NOTE-swimm-snippet: the lines below link your snippet to Swimm -->
 ### 📄 app/src/main/java/com/groupe5/steamfav/network/di/networkModule.kt
 ```kotlin
-11     val networkModule = module {
-12         singleOf(::SteamWorksWebNetwork) { bind<SteamWorksWebDataSource>() }
-13         singleOf(::SteamStoreNetwork) { bind<SteamStoreDataSource>() }
-14     }
-15     
+13     val networkModule = module {
+14         singleOf(::SteamWorksWebNetwork) { bind<SteamWorksWebDataSource>() }
+15         singleOf(::SteamStoreNetwork) { bind<SteamStoreDataSource>() }
+16         singleOf(::SteamCommunityNetwork) { bind<SteamCommunityDataSource>() }
+17     }
 ```
 
 <br/>
@@ -127,7 +126,7 @@ import to add
 <!-- NOTE-swimm-snippet: the lines below link your snippet to Swimm -->
 ### 📄 app/src/main/java/com/groupe5/steamfav/ui/fragments/GameDetailsFragment.kt
 ```kotlin
-15     import org.koin.androidx.viewmodel.ext.android.viewModel
+25     import org.koin.androidx.viewmodel.ext.android.viewModel
 ```
 
 <br/>
@@ -136,7 +135,7 @@ by viewModel create automatically viewModelFactory/viewModel
 <!-- NOTE-swimm-snippet: the lines below link your snippet to Swimm -->
 ### 📄 app/src/main/java/com/groupe5/steamfav/ui/fragments/GameDetailsFragment.kt
 ```kotlin
-20         private val viewModel: GameDetailsViewModel by viewModel()
+30         private val viewModel: GameDetailsViewModel by viewModel()
 ```
 
 <br/>

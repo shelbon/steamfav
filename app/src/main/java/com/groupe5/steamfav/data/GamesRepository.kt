@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
-//Refactor doing to much thing
+
 class GamesRepository(
     private val steamWorksNetwork: SteamWorksWebNetwork,
     private val steamStoreWebNetwork: SteamStoreNetwork,
@@ -69,9 +69,41 @@ class GamesRepository(
         }
 
 
-    override suspend fun getGame(gameId: Long): Flow<GameDetails?> {
-        TODO("Not yet implemented")
-    }
+    override suspend fun getGame(gameId: Long): Flow<NetworkResult<GameDetails?>> =
+        flow {
+            val gameDetailsResponse = steamStoreWebNetwork.getGameDetails(gameId);
+            if (gameDetailsResponse.isSuccessful) {
+                emit(NetworkResult.Success(gameDetailsResponse.body()))
+            } else {
+                when (gameDetailsResponse.code()) {
+                    429 -> emit(
+                        NetworkResult.Error(
+                            Resources.getSystem()
+                                .getString(R.string.error_too_many_requests), null
+                        )
+                    )
+                    200 ->
+                        gameDetailsResponse.body()
+                    else -> {
+                        val errorMsg = gameDetailsResponse.errorBody()?.string()!!
+                        if (errorMsg == "null") {
+                            emit(
+                                NetworkResult.Error(
+                                    Resources.getSystem()
+                                        .getString(R.string.error_not_found_game), null
+                                )
+                            )
+                        } else {
+                            emit(NetworkResult.Error(errorMsg, null))
+                        }
+
+                    }
+                }
+            }
+
+        }.flowOn(Dispatchers.IO).catch {
+            emit(NetworkResult.Error(it.localizedMessage ?: "an error occurred", null))
+        }
 
     override fun getSpotlightGame(): Flow<NetworkResult<GameDetails?>> =
         flow {
@@ -114,7 +146,6 @@ class GamesRepository(
             }
 
 
-
     override fun search(searchQuery: String): Flow<NetworkResult<List<SearchItem>>> =
         flow {
             val searchResult = steamStoreWebNetwork.search(searchQuery)
@@ -141,6 +172,8 @@ class GamesRepository(
             .catch {
                 emit(NetworkResult.Error(it.localizedMessage ?: "an error occurred", null))
             }
+
+
 
 
 }

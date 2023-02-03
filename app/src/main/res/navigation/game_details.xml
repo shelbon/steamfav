@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/gameDetailsFragment"
-        android:name="com.groupe5.steamfav.ui.fragments.GameDetails"
+        android:name="com.groupe5.steamfav.ui.fragments.GameDetailsFragment"
         android:label="@string/game_detail_title"
         tools:layout="@layout/fragment_game_details">
         <argument

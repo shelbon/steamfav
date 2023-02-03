@@ -10,7 +10,7 @@
     <string name="home_fragment_title">Home</string>
     <string name="loading_text">Loading…</string>
     <string name="price">Price</string>
-    <string name="error_not_found_game">Same games was not found</string>
+    <string name="error_not_found_game">Some games was not found</string>
     <string name="error_too_many_requests">Too many requests</string>
     <string name="generic_loading_error">Some error happened when fetching data</string>
     <string name="freeText">Free</string>
@@ -19,5 +19,10 @@
     <string name="search_list_title">Number of result: %d</string>
     <string name="game_detail_title">Game details</string>
     <string name="empty_search_result">Sorry, we haven\'t found a game named \"%s\"</string>
-
+    <string name="game_detail_tab_description">Description</string>
+    <string name="game_detail_tab_reviews">Reviews</string>
+    <string name="no_data">No %s  was found </string>
+    <string name="Reviews_label">Reviews</string>
+    <string name="no_reviews">No reviews found</string>
+    <string name="review_rating_content_description">review rating</string>
 </resources>
