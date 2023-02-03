@@ -33,7 +33,6 @@ and In the application class
 
 <br/>
 
-
 <!-- NOTE-swimm-snippet: the lines below link your snippet to Swimm -->
 ### 📄 app/src/main/java/com/groupe5/steamfav/SteamFavApp.kt
 ```kotlin
@@ -68,15 +67,17 @@ global module importing other modules with `includes` declare viewModel to be in
 <!-- NOTE-swimm-snippet: the lines below link your snippet to Swimm -->
 ### 📄 app/src/main/java/com/groupe5/steamfav/di/appModule.kt
 ```kotlin
-11     val appModule = module {
-12         includes(
-13             networkModule,
-14             dataModule
-15         )
-16         viewModelOf(::HomeViewModel)
-17         viewModelOf(::SearchViewModel)
-18         viewModelOf(::GameDetailsViewModel)
-19     }
+13     val appModule = module {
+14         includes(
+15             networkModule,
+16             dataModule
+17         )
+18         viewModelOf(::HomeViewModel)
+19         viewModelOf(::SearchViewModel)
+20         viewModelOf(::GameDetailsViewModel)
+21         viewModelOf(::UserDataViewModel)
+22         viewModelOf(::AuthViewModel)
+23     }
 ```
 
 <br/>
@@ -85,16 +86,17 @@ declare singleton instance of a class with `singleOf`
 <!-- NOTE-swimm-snippet: the lines below link your snippet to Swimm -->
 ### 📄 app/src/main/java/com/groupe5/steamfav/data/di/dataModule.kt
 ```kotlin
-10     val dataModule = module {
-11         includes(
-12             networkModule
-13         )
-14         singleOf(::GamesRepository) {
-15             bind<com.groupe5.steamfav.data.abstraction.GamesRepository>()
-16         }
-17         singleOf(::GameReviewsRepository) {
-18             bind<com.groupe5.steamfav.data.abstraction.GameReviewsRepository>()
-19         }
+15     val dataModule = module {
+16         includes(
+17             networkModule
+18         )
+19     
+20         singleOf(::GamesRepository){
+21             bind<com.groupe5.steamfav.data.abstraction.GamesRepository>()
+22         }
+23         singleOf(::AuthRepository){
+24             bind<com.groupe5.steamfav.data.abstraction.AuthRepository>()
+25         }
 ```
 
 <br/>
@@ -126,7 +128,7 @@ import to add
 <!-- NOTE-swimm-snippet: the lines below link your snippet to Swimm -->
 ### 📄 app/src/main/java/com/groupe5/steamfav/ui/fragments/GameDetailsFragment.kt
 ```kotlin
-25     import org.koin.androidx.viewmodel.ext.android.viewModel
+33     import org.koin.androidx.viewmodel.ext.android.viewModel
 ```
 
 <br/>
@@ -135,7 +137,7 @@ by viewModel create automatically viewModelFactory/viewModel
 <!-- NOTE-swimm-snippet: the lines below link your snippet to Swimm -->
 ### 📄 app/src/main/java/com/groupe5/steamfav/ui/fragments/GameDetailsFragment.kt
 ```kotlin
-30         private val viewModel: GameDetailsViewModel by viewModel()
+40         private val gameDetailsViewModel: GameDetailsViewModel by viewModel()
 ```
 
 <br/>
