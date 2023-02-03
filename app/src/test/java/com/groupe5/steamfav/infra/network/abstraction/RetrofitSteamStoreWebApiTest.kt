@@ -5,7 +5,6 @@ import com.groupe5.steamfav.network.abstraction.RetrofitSteamStoreWebApi
 import com.groupe5.steamfav.network.models.GameDetails
 import com.groupe5.steamfav.network.response.PriceOverview
 import com.groupe5.steamfav.network.response.adapter.GameDetailAdapter
-import com.groupe5.steamfav.network.response.adapter.GameDetailPublishersAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -24,10 +23,8 @@ internal class RetrofitSteamStoreWebApiTest : HttpTest() {
     override fun setUp() {
         super.setUp()
         val gameDetailAdapter = GameDetailAdapter()
-        val gameDetailPublishersAdapter=GameDetailPublishersAdapter()
         val moshi = Moshi.Builder()
             .add(gameDetailAdapter)
-            .add(gameDetailPublishersAdapter)
             .addLast(KotlinJsonAdapterFactory())
             .build()
         mockRetrofit = Retrofit.Builder()
@@ -63,6 +60,7 @@ internal class RetrofitSteamStoreWebApiTest : HttpTest() {
                 "Counter-Strike: Global Offensive (CS: GO) expands upon the team-based action gameplay that it pioneered when it was launched 19 years ago. CS: GO features new maps, characters, weapons, and game modes, and delivers updated versions of the classic CS content (de_dust2, etc.).",
                 "https://cdn.akamai.steamstatic.com/steam/apps/730/header.jpg?t=1668125812",
                 "https://cdn.akamai.steamstatic.com/steam/apps/730/page_bg_generated_v6b.jpg?t=1668125812",
+                "https://cdn.akamai.steamstatic.com/steam/apps/730/page_bg_generated.jpg?t=1668125812",
                 null,
                 listOf("Valve")
             )
@@ -89,6 +87,7 @@ internal class RetrofitSteamStoreWebApiTest : HttpTest() {
             "From legendary game creator Hideo Kojima comes a genre-defying experience, now expanded in this definitive DIRECTOR’S CUT. As Sam Bridges, your mission is to deliver hope to humanity by connecting the last survivors of a decimated America. Can you reunite the shattered world, one step at a time?",
             "https://cdn.akamai.steamstatic.com/steam/apps/1850570/header.jpg?t=1649438096",
             "https://cdn.akamai.steamstatic.com/steam/apps/1850570/page_bg_generated_v6b.jpg?t=1649438096",
+            "https://cdn.akamai.steamstatic.com/steam/apps/1850570/page.bg.jpg?t=1649438096",
             PriceOverview("USD", 3999, 2399, 40, "$39.99", "$23.99"),
             listOf("505 Games")
         )
@@ -104,20 +103,5 @@ internal class RetrofitSteamStoreWebApiTest : HttpTest() {
             .isNotNull
         Assertions.assertThat(gameDetails).isEqualTo(expectedGameDetails)
     }
-    @Test
-    fun `should  return publishers`() = runTest(this.testDispatcher) {
-        enqueueMockResponse("paidGameDetailsResponse.json", 200)
-        val expectedPublishers = listOf("505 Games")
-        val gameId: Long = 1850570
-        val gameDetails = mockRetrofit
-            .getGamePublishers(gameId).body()
-        val request = server
-            .takeRequest()
-        print(request.path)
-        Assertions.assertThat(request.path)
-            .isEqualTo("/api/appdetails?filters=publishers&appids=$gameId")
-        Assertions.assertThat(expectedPublishers)
-            .isNotEmpty
-        Assertions.assertThat(gameDetails).isEqualTo(expectedPublishers)
-    }
+
 }

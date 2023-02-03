@@ -15,7 +15,7 @@ sealed class NetworkResult<out T>(
     data class Success<out T>(val _data: T?) : NetworkResult<T>(Status.SUCCESS, data=_data, null)
 
 
-    data class Error<out T>(val msg: String, val _data: T?) : NetworkResult<T>(Status.ERROR, data=_data, msg)
+    data class Error<out T>(val msg: String, val _data: T?=null) : NetworkResult<T>(Status.ERROR, data=_data, msg)
 
 
     data class Loading<out T>(val _data: T? = null) : NetworkResult<T>(Status.LOADING, data=_data, null)

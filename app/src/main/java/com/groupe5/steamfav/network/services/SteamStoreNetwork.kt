@@ -1,5 +1,6 @@
 package com.groupe5.steamfav.network.services
 
+import com.groupe5.steamfav.domain.Review
 import com.groupe5.steamfav.network.abstraction.RetrofitSteamStore
 import com.groupe5.steamfav.network.abstraction.RetrofitSteamStoreWebApi
 import com.groupe5.steamfav.network.abstraction.SteamStoreDataSource
@@ -7,6 +8,7 @@ import com.groupe5.steamfav.network.models.ApiName
 import com.groupe5.steamfav.network.models.GameDetails
 import com.groupe5.steamfav.network.models.SearchItem
 import com.groupe5.steamfav.network.response.adapter.GameDetailAdapter
+import com.groupe5.steamfav.network.response.adapter.ReviewResponseAdapter
 import retrofit2.Response
 
 class SteamStoreNetwork() : SteamStoreDataSource {
@@ -14,8 +16,9 @@ class SteamStoreNetwork() : SteamStoreDataSource {
     private val steamStoreWebApi: RetrofitSteamStoreWebApi =
         networkConfigurator.provideRetrofit(ApiName.STEAM_STORE_FRONT, listOf(GameDetailAdapter()))
             .create(RetrofitSteamStoreWebApi::class.java)
-    private val steamStore:RetrofitSteamStore=networkConfigurator.provideRetrofit(ApiName.STEAM_STORE, listOf(GameDetailAdapter()))
-        .create(RetrofitSteamStore::class.java)
+    private val steamStore: RetrofitSteamStore =
+        networkConfigurator.provideRetrofit(ApiName.STEAM_STORE, listOf(GameDetailAdapter(),ReviewResponseAdapter()))
+            .create(RetrofitSteamStore::class.java)
 
     override suspend fun getGameDetails(gameId: Long): Response<GameDetails> =
         steamStoreWebApi.getGameDetails(gameId);
@@ -26,6 +29,8 @@ class SteamStoreNetwork() : SteamStoreDataSource {
     override suspend fun getGamePublishers(gameId: Long): Response<List<String>> =
         steamStoreWebApi.getGamePublishers(gameId)
 
+    override suspend fun getReviews(gameId: Long): Response<List<Review>> =
+        steamStore.reviews(gameId)
 
 
 }

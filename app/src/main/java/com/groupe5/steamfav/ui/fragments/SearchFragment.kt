@@ -8,23 +8,19 @@ import android.widget.SearchView
 import android.widget.Toast
 import androidx.core.app.NavUtils
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.groupe5.steamfav.R
 import com.groupe5.steamfav.abstraction.ItemClickListener
-import com.groupe5.steamfav.data.GamesRepository
 import com.groupe5.steamfav.databinding.FragmentSearchBinding
-import com.groupe5.steamfav.network.services.SteamStoreNetwork
-import com.groupe5.steamfav.network.services.SteamWorksWebNetwork
 import com.groupe5.steamfav.ui.adapter.GamesAdapter
 import com.groupe5.steamfav.ui.models.GameItem
 import com.groupe5.steamfav.utils.NetworkResult
 import com.groupe5.steamfav.utils.onlyLetters
 import com.groupe5.steamfav.viewmodels.SearchViewModel
-import com.groupe5.steamfav.viewmodels.factory.ViewModelFactory
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class SearchFragment : Fragment(), ItemClickListener<GameItem> {
@@ -36,26 +32,22 @@ class SearchFragment : Fragment(), ItemClickListener<GameItem> {
     private val navController by lazy {
         findNavController()
     }
-    private val viewModel: SearchViewModel by viewModels {
-        ViewModelFactory(
-            this,
-            GamesRepository(
-                SteamWorksWebNetwork(),
-                SteamStoreNetwork(),
-            ),
-            args.toBundle()
-        )
-    }
+    private val viewModel: SearchViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
 
         appBarConfiguration = AppBarConfiguration(setOf(R.navigation.main, R.navigation.search))
         setupWithNavController(binding.toolbar, navController, appBarConfiguration)
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         var searchQuery = args.searchQuery
         val adapter = GamesAdapter(this)
         binding.toolbar.setNavigationOnClickListener {
@@ -94,7 +86,8 @@ class SearchFragment : Fragment(), ItemClickListener<GameItem> {
 
                     if (response.data?.isEmpty() == true) {
                         binding.searchLoader.visibility = View.GONE
-                        binding.emptySearchText.text=getString(R.string.empty_search_result,searchQuery)
+                        binding.emptySearchText.text =
+                            getString(R.string.empty_search_result, searchQuery)
                         binding.groupEmptyResult.visibility = View.VISIBLE
                     } else {
                         binding.listTitle.text =
@@ -102,17 +95,19 @@ class SearchFragment : Fragment(), ItemClickListener<GameItem> {
 
                         adapter.submitList(response.data?.map { searchItem ->
 
-                                val price = when (searchItem.price.split(" ","-").joinToString("").onlyLetters()) {
-                                    true -> getString(R.string.freeText)
-                                    false -> searchItem.price
-                                }
-                                GameItem(
-                                    searchItem.id,
-                                    searchItem.name,
-                                    emptyList(),
-                                    price,
-                                    searchItem.img,
-                                    searchItem.img)
+                            val price = when (searchItem.price.split(" ", "-").joinToString("")
+                                .onlyLetters()) {
+                                true -> getString(R.string.freeText)
+                                false -> searchItem.price
+                            }
+                            GameItem(
+                                searchItem.id,
+                                searchItem.name,
+                                emptyList(),
+                                price,
+                                searchItem.img,
+                                ""
+                            )
 
                         })
                         binding.groupEmptyResult.visibility = View.GONE
@@ -132,13 +127,10 @@ class SearchFragment : Fragment(), ItemClickListener<GameItem> {
                     binding.searchLoader.visibility = View.VISIBLE
                 }
             }
-
         }
-
-        return binding.root
     }
     override fun onItemClick(item: GameItem) {
-        findNavController().navigate(GameDetailsDirections.showGameDetails(item.id))
+        findNavController().navigate(GameDetailsFragmentDirections.showGameDetails(item.id))
     }
 
 

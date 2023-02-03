@@ -1,6 +1,7 @@
 package com.groupe5.steamfav.network.services
 
 import com.groupe5.steamfav.BuildConfig
+import com.groupe5.steamfav.BuildConfig.STEAM_COMMUNITY_API_BASE_URL
 import com.groupe5.steamfav.BuildConfig.STEAM_STORE_API_BASE_URL
 import com.groupe5.steamfav.BuildConfig.STEAM_STORE_BASE_URL
 import com.groupe5.steamfav.BuildConfig.STEAM_WORKS_WEB_API_BASE_URL
@@ -20,6 +21,7 @@ class NetworkConfigurator {
             ApiName.STEAM_STORE_FRONT.name -> STEAM_STORE_API_BASE_URL
             ApiName.STEAM_STORE.name -> STEAM_STORE_BASE_URL
             ApiName.STEAM_WORKS.name -> STEAM_WORKS_WEB_API_BASE_URL
+            ApiName.STEAM_COMMUNITY.name -> STEAM_COMMUNITY_API_BASE_URL
             else -> throw IllegalStateException("API NOT FOUND")
         }
 

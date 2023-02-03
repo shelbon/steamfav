@@ -1,19 +1,14 @@
 package com.groupe5.steamfav.ui.activity
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.onNavDestinationSelected
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.groupe5.steamfav.BuildConfig
 import com.groupe5.steamfav.R
 import com.groupe5.steamfav.databinding.ActivityMainBinding
 
@@ -24,7 +19,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var db: FirebaseFirestore
     private lateinit var appBarConfiguration: AppBarConfiguration
     val navController by lazy {
-        (supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container) as NavHostFragment).navController
+        (supportFragmentManager.findFragmentById(R.id.fragment_container_view_tag) as NavHostFragment).navController
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,11 +34,6 @@ class MainActivity : AppCompatActivity() {
         db = Firebase.firestore
         auth = Firebase.auth
     }
-
-
-    override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp(appBarConfiguration)
-                || super.onSupportNavigateUp()
-    }
+ 
 }
 

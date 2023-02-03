@@ -45,14 +45,11 @@
        </action>
    </fragment>
     <fragment
-
-    android:id="@+id/login_fragment"
-
-    android:name="com.groupe5.steamfav.ui.fragments.LoginFragment"
-
-    android:label="@string/login_fragment_label"
-
-    tools:layout="@layout/fragment_login"></fragment>
+        android:id="@+id/login_fragment"
+        android:name="com.groupe5.steamfav.ui.fragments.LoginFragment"
+        android:label="@string/login_fragment_label"
+        tools:layout="@layout/fragment_login">
+    </fragment>
     <include  app:graph="@navigation/game_details"/>
     <activity
         android:id="@+id/search_view"

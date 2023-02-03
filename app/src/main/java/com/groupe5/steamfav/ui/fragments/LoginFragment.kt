@@ -1,10 +1,10 @@
 package com.groupe5.steamfav.ui.fragments
 
-import android.app.AlertDialog
+import android.app.Activity
+import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Patterns
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +12,10 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.navigation.Navigation.findNavController
+import android.widget.Toast.makeText
+import androidx.appcompat.app.AlertDialog
+import androidx.core.view.isNotEmpty
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
@@ -19,6 +23,7 @@ import com.groupe5.steamfav.R
 import com.groupe5.steamfav.databinding.FragmentHomeBinding
 import com.groupe5.steamfav.databinding.FragmentLoginBinding
 import com.groupe5.steamfav.ui.activity.MainActivity
+import com.groupe5.steamfav.ui.activity.SignupActivity
 import timber.log.Timber
 
 /**

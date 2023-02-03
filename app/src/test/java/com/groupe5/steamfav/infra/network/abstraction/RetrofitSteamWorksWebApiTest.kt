@@ -4,7 +4,6 @@ package com.groupe5.steamfav.infra.network.abstraction
 import HttpTest
 import com.groupe5.steamfav.network.response.MostPlayedGames
 import com.groupe5.steamfav.network.abstraction.RetrofitSteamWorksWebApi
-import com.groupe5.steamfav.network.models.TopReleasePage
 import com.groupe5.steamfav.network.response.adapter.TopReleasePageAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
