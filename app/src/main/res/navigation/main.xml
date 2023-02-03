@@ -37,10 +37,6 @@
         tools:layout="@layout/fragment_login">
     </fragment>
 
-        android:id="@+id/liked_games_fragment"
-        android:name="com.groupe5.steamfav.ui.fragments.LikedGamesFragment"
-        android:label="@string/liked_game_fragment_title"
-        tools:layout="@layout/fragment_home"/>
     <include  app:graph="@navigation/game_details"/>
     <activity
         android:id="@+id/search_view"
