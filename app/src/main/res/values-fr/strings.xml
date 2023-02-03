@@ -19,7 +19,11 @@
     <string name="search_view_title">Recherche</string>
     <string name="search_list_title">Nombre de résultats: %d</string>
     <string name="game_detail_title">Detail du jeu</string>
+    <string name="empty_game_like_message">Vous n\'avez pas encore liké de contenu.\n Cliqez sur le cœur pour en rajouter. </string>
+    <string name="empty_game_wishlist_message">Vous n\'avez pas encore liké de contenu. Cliqez sur l\'étoile pour en rajouter. </string>
     <string name="empty_search_result">Désolé, nous n\'avons pas trouvé de jeu nommé \"%s\"</string>
+    <string name="pas_de_jeux_liker">Pas de jeux liker</string>
+    <string name="liked_game_fragment_text">Favoris</string>
     <string name="email_input_label">Email</string>
     <string name="game_detail_tab_description">Description</string>
     <string name="game_detail_tab_reviews">Reviews</string>

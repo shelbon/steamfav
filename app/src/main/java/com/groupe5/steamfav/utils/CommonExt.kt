@@ -31,7 +31,6 @@ fun TextView.applyUnderlineEndingAtDelimiter(delimiter: String = ":") {
         this.text = spannable
     }
 }
-
 fun TextView.applyUnderline() {
     val spannable = SpannableString(this.text)
     spannable.setSpan(UnderlineSpan(), 0, this.length(), 0)

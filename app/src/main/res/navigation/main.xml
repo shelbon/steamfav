@@ -30,13 +30,26 @@
             app:popEnterAnim="@anim/fui_slide_in_right"
             app:popExitAnim="@anim/fui_slide_out_left" />
     </fragment>
+   <fragment
+       android:id="@+id/liked_games_fragment"
+       android:name="com.groupe5.steamfav.ui.fragments.LikeGamesFragment"
+       android:label="@string/liked_game_fragment_text"
+       tools:layout="@layout/fragment_like_game">
+       <action
+           android:id="@+id/action_liked_games_fragment_to_game_details_dest"
+           app:destination="@id/game_details_dest">
+           <argument
+               android:name="gameId"
+               android:defaultValue="0L"
+               app:argType="long" />
+       </action>
+   </fragment>
     <fragment
         android:id="@+id/login_fragment"
         android:name="com.groupe5.steamfav.ui.fragments.LoginFragment"
         android:label="@string/login_fragment_label"
         tools:layout="@layout/fragment_login">
     </fragment>
-
     <include  app:graph="@navigation/game_details"/>
     <activity
         android:id="@+id/search_view"

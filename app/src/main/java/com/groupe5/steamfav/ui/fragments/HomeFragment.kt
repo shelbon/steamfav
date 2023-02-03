@@ -4,6 +4,9 @@ package com.groupe5.steamfav.ui.fragments
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
@@ -14,6 +17,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.onNavDestinationSelected
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
@@ -21,9 +25,11 @@ import com.google.firebase.auth.FirebaseAuth
 import com.groupe5.steamfav.R
 import com.groupe5.steamfav.abstraction.ItemClickListener
 import com.groupe5.steamfav.databinding.FragmentHomeBinding
+import com.groupe5.steamfav.ui.activity.MainActivity
 import com.groupe5.steamfav.ui.adapter.GamesAdapter
 import com.groupe5.steamfav.ui.models.GameItem
 import com.groupe5.steamfav.utils.NetworkResult
+import com.groupe5.steamfav.utils.setupActionBarFromFragment
 import com.groupe5.steamfav.viewmodels.AuthViewModel
 import com.groupe5.steamfav.viewmodels.HomeViewModel
 import org.koin.android.ext.android.inject
@@ -34,14 +40,15 @@ class HomeFragment : Fragment(), ItemClickListener<GameItem> {
 
 
     private val viewModel: HomeViewModel by viewModel()
-    private var _binding: FragmentHomeBinding? = null
+    private var _binding: FragmentHomeBinding? = null    
+    private val authViewModel: AuthViewModel by viewModel()
     private val authProvider:FirebaseAuth by  inject()
     private val binding get() = _binding!!
     private lateinit var appBarConfiguration: AppBarConfiguration
-    private val authViewModel: AuthViewModel by viewModel()
+
     private val navController by lazy {
         findNavController()
-    }
+     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -66,6 +73,8 @@ class HomeFragment : Fragment(), ItemClickListener<GameItem> {
         val adapter = GamesAdapter(this)
         gamesRecyclerView.adapter = adapter
         gamesRecyclerView.setItemViewCacheSize(50)
+        appBarConfiguration = AppBarConfiguration(findNavController().graph)
+        (requireActivity() as MainActivity).setupActionBarFromFragment(binding.toolbar,findNavController(),appBarConfiguration)
         binding.searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
 
@@ -173,6 +182,7 @@ class HomeFragment : Fragment(), ItemClickListener<GameItem> {
     }
 
 
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -184,5 +194,13 @@ class HomeFragment : Fragment(), ItemClickListener<GameItem> {
     }
 
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return item.onNavDestinationSelected(findNavController()) || super.onOptionsItemSelected(item)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.main, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
 
 }
