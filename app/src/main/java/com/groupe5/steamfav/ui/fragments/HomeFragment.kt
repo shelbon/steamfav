@@ -2,9 +2,7 @@ package com.groupe5.steamfav.ui.fragments
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.SearchView
 import androidx.core.text.HtmlCompat
 import androidx.core.text.PrecomputedTextCompat
@@ -12,6 +10,8 @@ import androidx.core.widget.TextViewCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.onNavDestinationSelected
 import com.bumptech.glide.Glide.with
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
@@ -21,9 +21,11 @@ import com.groupe5.steamfav.data.GamesRepository
 import com.groupe5.steamfav.databinding.FragmentHomeBinding
 import com.groupe5.steamfav.network.services.SteamStoreNetwork
 import com.groupe5.steamfav.network.services.SteamWorksWebNetwork
+import com.groupe5.steamfav.ui.activity.MainActivity
 import com.groupe5.steamfav.ui.adapter.GamesAdapter
 import com.groupe5.steamfav.ui.models.GameItem
 import com.groupe5.steamfav.utils.NetworkResult
+import com.groupe5.steamfav.utils.setupActionBarFromFragment
 import com.groupe5.steamfav.viewmodels.HomeViewModel
 import com.groupe5.steamfav.viewmodels.factory.ViewModelFactory
 
@@ -43,6 +45,7 @@ class HomeFragment : Fragment(), ItemClickListener<GameItem> {
     }
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+    private lateinit var appBarConfiguration: AppBarConfiguration
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -52,6 +55,8 @@ class HomeFragment : Fragment(), ItemClickListener<GameItem> {
         val adapter = GamesAdapter(this)
         gamesRecyclerView.adapter = adapter
         gamesRecyclerView.setItemViewCacheSize(50)
+        appBarConfiguration = AppBarConfiguration(findNavController().graph)
+        (requireActivity() as MainActivity).setupActionBarFromFragment(binding.toolbar,findNavController(),appBarConfiguration)
         binding.searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
 
@@ -158,6 +163,7 @@ class HomeFragment : Fragment(), ItemClickListener<GameItem> {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
     }
 
     override fun onDestroyView() {
@@ -171,5 +177,13 @@ class HomeFragment : Fragment(), ItemClickListener<GameItem> {
     }
 
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return item.onNavDestinationSelected(findNavController()) || super.onOptionsItemSelected(item)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.main, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
 
 }

@@ -13,23 +13,20 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        app:title="@string/home_fragment_title"
+        tools:title="@string/liked_game_fragment_text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/search_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar" />
-
-        <include
-            android:id="@+id/spotlight_game"
-            layout="@layout/spotlight_game"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/search_bar" />
+       <com.google.android.material.progressindicator.CircularProgressIndicator
+           android:id="@+id/loader"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:indeterminate="true"
+           app:indicatorColor="@color/white"
+           android:visibility="visible"
+           app:layout_constraintBottom_toBottomOf="parent"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toTopOf="parent"/>
     <TextView
         android:id="@+id/status_operation"
         style="@style/TextAppearance.App.TitleMedium"
@@ -40,29 +37,25 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/list_title"
-        tools:text="Loading"
-        tools:visibility="visible" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Loading" />
 
-        <TextView
-            android:id="@+id/list_title"
-            style="@style/TextAppearance.App.TitleMedium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="18dp"
-            android:layout_marginTop="18dp"
-            android:text="@string/homeListTitle"
-            app:layout_constraintBottom_toTopOf="@id/most_played_game_list"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/spotlight_game" />
+    <include
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/empty_liked_games_layout"
+        layout="@layout/empty_liked_games_result"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/most_played_game_list"
+            android:id="@+id/liked_game_list"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/list_title"
             tools:listitem="@layout/game_item" />
     </androidx.constraintlayout.widget.ConstraintLayout>

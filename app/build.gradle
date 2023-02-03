@@ -91,7 +91,7 @@ dependencies {
     implementation "com.google.firebase:firebase-auth-ktx"
     // Firebase UI
     implementation "com.firebaseui:firebase-ui-auth:8.0.2"
-    implementation "com.firebaseui:firebase-ui-database:8.0.2"
+    implementation "com.firebaseui:firebase-ui-firestore:8.0.2"
     //http and api dependencies
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-moshi:2.9.0"
