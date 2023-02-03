@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.groupe5.steamfav.databinding.ReviewItemBinding
 import com.groupe5.steamfav.domain.Review
+import com.groupe5.steamfav.utils.applyUnderline
 
 
 class ReviewsAdapter() : ListAdapter<Review, ReviewsAdapter.ViewHolder>(
@@ -36,7 +37,10 @@ class ReviewsAdapter() : ListAdapter<Review, ReviewsAdapter.ViewHolder>(
         fun setData(reviewData: Review) {
             with(binding) {
                 with(reviewData) {
-                    username.text = author.username
+                    username.apply{
+                        text= author.username
+                        applyUnderline()
+                    }
                     review.text = body
                     reviewRating.rating=rating.toFloat()
                 }

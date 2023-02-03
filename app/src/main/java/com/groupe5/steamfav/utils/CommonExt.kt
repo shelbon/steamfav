@@ -7,7 +7,7 @@ import android.text.style.UnderlineSpan
 import android.widget.TextView
 
 
-fun TextView.applyBoldEndingAtDelimiter(delimiter:String=":") {
+fun TextView.applyBoldEndingAtDelimiter(delimiter: String = ":") {
     val index = this.text.indexOf(delimiter)
     if (this.text.isNotEmpty() && index != -1) {
         val spannable = SpannableString(this.text)
@@ -15,7 +15,8 @@ fun TextView.applyBoldEndingAtDelimiter(delimiter:String=":") {
         this.text = spannable
     }
 }
-fun TextView.applyUnderlineEndingAtDelimiter(delimiter: String=":"){
+
+fun TextView.applyUnderlineEndingAtDelimiter(delimiter: String = ":") {
     val index = this.text.indexOf(delimiter)
     if (this.text.isNotEmpty() && index != -1) {
         val spannable = SpannableString(this.text)
@@ -23,4 +24,11 @@ fun TextView.applyUnderlineEndingAtDelimiter(delimiter: String=":"){
         this.text = spannable
     }
 }
+
+fun TextView.applyUnderline() {
+    val spannable = SpannableString(this.text)
+    spannable.setSpan(UnderlineSpan(), 0, this.length(), 0)
+    this.text = spannable
+}
+
 fun String.onlyLetters() = all { it.isLetter() }

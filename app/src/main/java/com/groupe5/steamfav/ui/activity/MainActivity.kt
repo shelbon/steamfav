@@ -13,7 +13,6 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.groupe5.steamfav.BuildConfig
 import com.groupe5.steamfav.R
 import com.groupe5.steamfav.databinding.ActivityMainBinding
 
@@ -32,10 +31,10 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-        if (BuildConfig.DEBUG) {
-            Firebase.firestore.useEmulator("10.0.2.2", 8080)
-            Firebase.auth.useEmulator("10.0.2.2", 9099)
-        }
+//        if (BuildConfig.DEBUG) {
+//            Firebase.firestore.useEmulator("10.0.2.2", 8080)
+//            Firebase.auth.useEmulator("10.0.2.2", 9099)
+//        }
         db = Firebase.firestore
         auth = Firebase.auth
     }
