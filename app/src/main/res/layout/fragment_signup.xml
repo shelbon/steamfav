@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -14,29 +15,51 @@
         android:gravity="center"
         android:text="Bienvenue "
         android:textSize="17sp"
-        app:layout_constraintBottom_toTopOf="@+id/login_instruction"
+        app:layout_constraintBottom_toTopOf="@+id/username_box"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.37" />
 
 
-    <TextView
-        android:id="@+id/login_instruction"
-        style="@style/TextAppearance.App.TitleMedium"
-        android:layout_width="match_parent"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/username_box"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="104dp"
-        android:drawablePadding="8dp"
-        android:gravity="center"
-        android:text="Veuiller saisir votre mail\n afin de réinitialiser votre mot de passe "
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/emailBox"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toTopOf="@id/emailBox"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/login_title" />
+        app:layout_constraintTop_toBottomOf="login_title"
+        app:layout_constraintVertical_bias="0.82">
 
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:hint="@string/username_input_label"
+            android:minHeight="48dp"
+            android:padding="8dp"
+            android:textColor="@color/white" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:hint="@string/email_input_label"
+        android:minHeight="48dp"
+        android:padding="8dp"
+        android:textColor="@color/white" />
+    </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/emailBox"
         android:layout_width="0dp"
@@ -55,7 +78,6 @@
             android:minHeight="48dp"
             android:padding="8dp"
             android:textColor="@color/white" />
-        />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -84,7 +106,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:text="Login"
+        android:text="Signup"
         android:textSize="18sp"
         app:cornerRadius="30dp"
         app:layout_constraintBottom_toTopOf="@id/signupRedirectText"
@@ -94,34 +116,5 @@
         app:layout_constraintVertical_bias="0.31"
         app:layout_constraintVertical_chainStyle="spread" />
 
-    <TextView
-        android:id="@+id/forgot_password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="6dp"
-        android:padding="8dp"
-        android:text="Forgot Password?"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/signupRedirectText" />
-
-    <Button
-        android:id="@+id/signupRedirectText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="14dp"
-        android:padding="8dp"
-        android:text="créer un nouveau compte"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@id/forgot_password"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/login_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
