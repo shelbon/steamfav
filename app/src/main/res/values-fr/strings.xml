@@ -20,4 +20,5 @@
     <string name="search_list_title">Nombre de résultats: %d</string>
     <string name="game_detail_title">Detail du jeu</string>
     <string name="empty_search_result">Désolé, nous n\'avons pas trouvé de jeu nommé \"%s\"</string>
+    <string name="email_input_label">Email</string>
 </resources>

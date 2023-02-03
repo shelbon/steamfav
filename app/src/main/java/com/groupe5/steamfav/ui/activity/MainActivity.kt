@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var db: FirebaseFirestore
     private lateinit var appBarConfiguration: AppBarConfiguration
     val navController by lazy {
-        (supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container) as NavHostFragment).navController
+        (supportFragmentManager.findFragmentById(R.id.fragment_container_view_tag) as NavHostFragment).navController
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
